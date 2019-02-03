@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Lecture {
+    int id;
     private Group group;
     private Teacher teacher;
     private Course course;
@@ -12,41 +13,53 @@ public class Lecture {
     private LocalTime time;
     
     public void setGroup(Group group) {
-        this.group=group;
+        this.group = group;
     }
+    
     public Group getGroup() {
         return group;
     }
+    
     public void setTeacher(Teacher teacher) {
-        this.teacher=teacher;
+        this.teacher = teacher;
     }
+    
     public Teacher getTeacher() {
         return teacher;
     }
+    
     public void setCourse(Course course) {
-        this.course=course;
+        this.course = course;
     }
+    
     public Course getCourse() {
         return course;
     }
+    
     public void setClassroom(Classroom classroom) {
-        this.classroom=classroom;
+        this.classroom = classroom;
     }
+    
     public Classroom getClassroom() {
         return classroom;
     }
+    
     public void setDate(LocalDate date) {
-        this.date=date;
+        this.date = date;
     }
+    
     public LocalDate getDate() {
         return date;
     }
+    
     public void setTime(LocalTime time) {
-        this.time=time;
+        this.time = time;
     }
+    
     public LocalTime getTime() {
         return time;
     }
+    
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -54,10 +67,10 @@ public class Lecture {
         result = prime * result + ((course == null) ? 0 : course.hashCode());
         result = prime * result + ((date == null) ? 0 : date.hashCode());
         result = prime * result + ((group == null) ? 0 : group.hashCode());
-        result = prime * result + ((teacher == null) ? 0 : teacher.hashCode());
         result = prime * result + ((time == null) ? 0 : time.hashCode());
         return result;
     }
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -82,11 +95,6 @@ public class Lecture {
                 return false;
         } else if (!group.equals(other.group))
             return false;
-        if (teacher == null) {
-            if (other.teacher != null)
-                return false;
-        } else if (!teacher.equals(other.teacher))
-            return false;
         if (time == null) {
             if (other.time != null)
                 return false;
@@ -94,6 +102,5 @@ public class Lecture {
             return false;
         return true;
     }
-   
     
 }

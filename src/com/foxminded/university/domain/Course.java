@@ -34,7 +34,6 @@ public class Course {
         final int prime = 31;
         int result = 1;
         result = prime * result + id;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
     
@@ -48,11 +47,6 @@ public class Course {
             return false;
         Course other = (Course) obj;
         if (id != other.id)
-            return false;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
             return false;
         return true;
     }

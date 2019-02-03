@@ -49,8 +49,6 @@ public class Group {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((groupName == null) ? 0 : groupName.hashCode());
-        result = prime * result + groupNumber;
         result = prime * result + id;
         return result;
     }
@@ -64,13 +62,6 @@ public class Group {
         if (getClass() != obj.getClass())
             return false;
         Group other = (Group) obj;
-        if (groupName == null) {
-            if (other.groupName != null)
-                return false;
-        } else if (!groupName.equals(other.groupName))
-            return false;
-        if (groupNumber != other.groupNumber)
-            return false;
         if (id != other.id)
             return false;
         return true;

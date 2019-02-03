@@ -42,10 +42,7 @@ public class Teacher {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((course == null) ? 0 : course.hashCode());
-        result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
         result = prime * result + id;
-        result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
         return result;
     }
     
@@ -58,22 +55,7 @@ public class Teacher {
         if (getClass() != obj.getClass())
             return false;
         Teacher other = (Teacher) obj;
-        if (course == null) {
-            if (other.course != null)
-                return false;
-        } else if (!course.equals(other.course))
-            return false;
-        if (firstName == null) {
-            if (other.firstName != null)
-                return false;
-        } else if (!firstName.equals(other.firstName))
-            return false;
         if (id != other.id)
-            return false;
-        if (lastName == null) {
-            if (other.lastName != null)
-                return false;
-        } else if (!lastName.equals(other.lastName))
             return false;
         return true;
     }
