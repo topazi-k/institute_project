@@ -10,8 +10,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class UniversityTest {
-    University university = new University();
+public class UniversityServiceTest {
+    UniversityService university = new UniversityService();
     
     Lecture lecture1 = new Lecture();
     Lecture lecture2 = new Lecture();
@@ -29,7 +29,7 @@ public class UniversityTest {
     Faculty faculty2 = new Faculty();
     
     Student studentNull;
-    TimePeriod timePeriodNull;
+    TimePeriodService timePeriodNull;
     Teacher teacherNull;
     
     @Before
@@ -90,7 +90,7 @@ public class UniversityTest {
     
     @Test(expected = IllegalArgumentException.class)
     public void shoulThrowExceptionWhenStudentIsNull() {
-        TimePeriod timePeriod = new TimePeriod(LocalDate.of(2000, 10, 12), LocalDate.of(2000, 10, 20));
+        TimePeriodService timePeriod = new TimePeriodService(LocalDate.of(2000, 10, 12), LocalDate.of(2000, 10, 20));
         university.getStudentSchedule(studentNull, timePeriod);
     }
     
@@ -101,20 +101,20 @@ public class UniversityTest {
     
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionWhenEndOfPeriodLessThanStartOfPeriod() {
-        TimePeriod incorrectTimePeriod = new TimePeriod(LocalDate.of(2000, 10, 10), LocalDate.of(1999, 10, 10));
+        TimePeriodService incorrectTimePeriod = new TimePeriodService(LocalDate.of(2000, 10, 10), LocalDate.of(1999, 10, 10));
         university.getStudentSchedule(student1, incorrectTimePeriod);
     }
     
     @Test
     public void shouldReturnEmptyArrayInsteadStudentScheduleWhenTimePeriodDoesNotMatchWithLectures() {
-        TimePeriod timePeriod = new TimePeriod(LocalDate.of(2000, 10, 12), LocalDate.of(2000, 10, 20));
+        TimePeriodService timePeriod = new TimePeriodService(LocalDate.of(2000, 10, 12), LocalDate.of(2000, 10, 20));
         assertTrue((university.getStudentSchedule(student1, timePeriod)).isEmpty());
     }
     
     @Test
     public void shouldReturnStudentScheduleOnOneDayWhenTimePeriodIsOneDay() {
         List<Lecture> expected = new ArrayList<>();
-        TimePeriod timePeriod = new TimePeriod(LocalDate.of(2000, 10, 10));
+        TimePeriodService timePeriod = new TimePeriodService(LocalDate.of(2000, 10, 10));
         List<Lecture> schedule = (ArrayList<Lecture>) university.getStudentSchedule(student1, timePeriod);
         
         expected.add(lecture1);
@@ -126,7 +126,7 @@ public class UniversityTest {
     @Test
     public void shouldReturnStudentScheduleOnOneMonthWhenTimePeriodIsOneMonth() {
         List<Lecture> expected = new ArrayList<>();
-        TimePeriod timePeriod = new TimePeriod(LocalDate.of(2000, 10, 10), LocalDate.of(2000, 11, 10));
+        TimePeriodService timePeriod = new TimePeriodService(LocalDate.of(2000, 10, 10), LocalDate.of(2000, 11, 10));
         List<Lecture> schedule = (ArrayList<Lecture>) university.getStudentSchedule(student1, timePeriod);
         
         expected.add(lecture1);
@@ -139,7 +139,7 @@ public class UniversityTest {
     
     @Test(expected = IllegalArgumentException.class)
     public void sholdThrowExceptionWhenTeacherIsNull() {
-        TimePeriod timePeriod = new TimePeriod(LocalDate.of(2000, 10, 12), LocalDate.of(2000, 10, 20));
+        TimePeriodService timePeriod = new TimePeriodService(LocalDate.of(2000, 10, 12), LocalDate.of(2000, 10, 20));
         university.getTeacherSchedule(teacherNull, timePeriod);
     }
     
@@ -150,20 +150,20 @@ public class UniversityTest {
     
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionWhenEndOfPeriodLessThanStartOfPeriodForTeacher() {
-        TimePeriod incorrectTimePeriod = new TimePeriod(LocalDate.of(2000, 10, 10), LocalDate.of(1999, 10, 10));
+        TimePeriodService incorrectTimePeriod = new TimePeriodService(LocalDate.of(2000, 10, 10), LocalDate.of(1999, 10, 10));
         university.getTeacherSchedule(teacher1, incorrectTimePeriod);
     }
     
     @Test
     public void shouldReturnEmptyArrayInsteadTeacherScheduleWhenTimePeriodDoesNotMatchWithLectures() {
-        TimePeriod timePeriod = new TimePeriod(LocalDate.of(2000, 10, 12), LocalDate.of(2000, 10, 20));
+        TimePeriodService timePeriod = new TimePeriodService(LocalDate.of(2000, 10, 12), LocalDate.of(2000, 10, 20));
         assertTrue((university.getTeacherSchedule(teacher1, timePeriod)).isEmpty());
     }
     
     @Test
     public void shouldReturnTeacherScheduleOnOneDayWhenTimePeriodIsOneDay() {
         List<Lecture> expected = new ArrayList<>();
-        TimePeriod timePeriod = new TimePeriod(LocalDate.of(2000, 10, 10));
+        TimePeriodService timePeriod = new TimePeriodService(LocalDate.of(2000, 10, 10));
         List<Lecture> schedule = (ArrayList<Lecture>) university.getTeacherSchedule(teacher1, timePeriod);
         
         expected.add(lecture1);
@@ -175,7 +175,7 @@ public class UniversityTest {
     @Test
     public void shouldReturnTeacherScheduleOnOneMonthWhenTimePeriodIsOneMonth() {
         List<Lecture> expected = new ArrayList<>();
-        TimePeriod timePeriod = new TimePeriod(LocalDate.of(2000, 10, 10), LocalDate.of(2000, 11, 10));
+        TimePeriodService timePeriod = new TimePeriodService(LocalDate.of(2000, 10, 10), LocalDate.of(2000, 11, 10));
         List<Lecture> schedule = (ArrayList<Lecture>) university.getTeacherSchedule(teacher1, timePeriod);
         
         expected.add(lecture1);

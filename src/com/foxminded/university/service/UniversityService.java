@@ -12,8 +12,7 @@ import com.foxminded.university.domain.Teacher;
 
 import java.time.LocalDate;
 
-public class University {
-    int id;
+public class UniversityService {
     private List<Faculty> faculties = new ArrayList<>();
     private List<Classroom> classrooms = new ArrayList<>();
     private List<Lecture> schedule = new ArrayList<>();
@@ -54,7 +53,7 @@ public class University {
         schedule.remove(lecture);
     }
     
-    public List<Lecture> getTeacherSchedule(Teacher teacher, TimePeriod timePeriod) {
+    public List<Lecture> getTeacherSchedule(Teacher teacher, TimePeriodService timePeriod) {
         if (teacher == null) {
             throw new IllegalArgumentException("teacher is null");
         }
@@ -86,7 +85,7 @@ public class University {
         return teacherScheduleInPeriod;
     }
     
-    public List<Lecture> getStudentSchedule(Student student, TimePeriod timePeriod) {
+    public List<Lecture> getStudentSchedule(Student student, TimePeriodService timePeriod) {
         if (student == null) {
             throw new IllegalArgumentException("studint is null");
         }
