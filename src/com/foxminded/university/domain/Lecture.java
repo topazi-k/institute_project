@@ -12,6 +12,14 @@ public class Lecture {
     private LocalDate date;
     private LocalTime time;
     
+    public void setId(int id) {
+        this.id=id;
+    }
+    
+    public int getId() {
+        return id;
+    }
+    
     public void setGroup(Group group) {
         this.group = group;
     }

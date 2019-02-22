@@ -1,3 +1,1 @@
 ﻿CREATE DATABASE university;
-CREATE USER new_user PASSWORD '12345';
-GRANT ALL PRIVILEGES ON DATABASE institute TO new_user;
