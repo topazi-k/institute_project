@@ -42,6 +42,10 @@ public class Faculty {
         teachers.add(teacher);
     }
     
+    public void addTeachers(List<Teacher> teachers) {
+        this.teachers.addAll(teachers);
+    }
+    
     public void removeTeacher(Teacher teacher) {
         teachers.remove(teacher);
     }
@@ -50,12 +54,20 @@ public class Faculty {
         groups.add(group);
     }
     
+    public void addGroups(List<Group> groups) {
+        this.groups.addAll(groups);
+    }
+    
     public void removeGroup(Group group) {
         groups.remove(group);
     }
     
     public void addCourse(Course course) {
         courses.add(course);
+    }
+    
+    public void addCourses(List<Course> courses) {
+        this.courses.addAll(courses);
     }
     
     public void removeCourse(Course course) {

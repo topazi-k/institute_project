@@ -5,23 +5,18 @@ import com.foxminded.university.domain.Faculty;
 import com.foxminded.university.domain.Group;
 import com.foxminded.university.domain.Teacher;
 
-public interface FacultyDao {
+public interface FacultyDao extends CrudDao<Faculty> {
     
-    public Faculty createFaculty(Faculty faculty) throws DaoException;
+    void addCourse(Course course, Faculty faculty);
     
-    public Faculty findById(int id) throws DaoException;
+    void removeCourse(Course course);
     
-    public Faculty updateInformation(Faculty faculty) throws DaoException;
+    void addTeacher(Teacher teacher, Faculty faculty);
     
-    public void addCourse(Course course, Faculty faculty) throws DaoException;
+    void removeTeacher(Teacher teacher);
     
-    public void removeCourse(Course course) throws DaoException;
+    void addGroup(Group group, Faculty faculty);
     
-    public void addTeacher(Teacher teacher, Faculty faculty) throws DaoException;
+    void removeGroup(Group group);
     
-    public void removeTeacher(Teacher teacher) throws DaoException;
-    
-    public void addGroup(Group group, Faculty faculty) throws DaoException;
-    
-    public void removeGroup(Group group) throws DaoException;
 }
