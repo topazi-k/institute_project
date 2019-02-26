@@ -22,6 +22,10 @@ import com.foxminded.university.domain.Teacher;
 public class LectureDaoJdbc implements LectureDao {
     
     private ConnectionFactory connFactory = new ConnectionFactory();
+    private TeacherDaoJdbc teacherDao = new TeacherDaoJdbc();
+    private GroupDaoJdbc groupDao = new GroupDaoJdbc();
+    private CourseDaoJdbc courseDao = new CourseDaoJdbc();
+    private ClassroomDaoJdbc classroomDao = new ClassroomDaoJdbc();
     
     @Override
     public Lecture create(Lecture lecture) {
@@ -203,13 +207,13 @@ public class LectureDaoJdbc implements LectureDao {
         lecture.setId(resultSet.getInt("id"));
         lecture.setDate(resultSet.getObject("date", LocalDate.class));
         lecture.setTime(resultSet.getObject("time", LocalTime.class));
-        Teacher teacher = new TeacherDaoJdbc().findById(resultSet.getInt("teacher"));
+        Teacher teacher = teacherDao.findById(resultSet.getInt("teacher"));
         lecture.setTeacher(teacher);
-        Group group = new GroupDaoJdbc().findById(resultSet.getInt("group"));
+        Group group = groupDao.findById(resultSet.getInt("group"));
         lecture.setGroup(group);
-        Course course = new CourseDaoJdbc().findById(resultSet.getInt("course"));
+        Course course = courseDao.findById(resultSet.getInt("course"));
         lecture.setCourse(course);
-        Classroom classroom = new ClassroomDaoJdbc().findById(resultSet.getInt("classroom"));
+        Classroom classroom = classroomDao.findById(resultSet.getInt("classroom"));
         lecture.setClassroom(classroom);
         
         return lecture;

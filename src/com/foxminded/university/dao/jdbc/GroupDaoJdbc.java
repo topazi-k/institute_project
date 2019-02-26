@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class GroupDaoJdbc implements GroupDao {
     
     private ConnectionFactory connFactory = new ConnectionFactory();
+    private StudentDaoJdbc studentDao = new StudentDaoJdbc();
     
     @Override
     public Group create(Group group) {
@@ -205,7 +206,7 @@ public class GroupDaoJdbc implements GroupDao {
             
         } catch (SQLException e) {
             throw new DaoException(e);
-        }    
+        }
     }
     
     private Group getGroupFromResultSet(ResultSet resultSet) throws SQLException {
@@ -213,7 +214,7 @@ public class GroupDaoJdbc implements GroupDao {
         group.setId(resultSet.getInt("id"));
         group.setGroupName(resultSet.getString("name"));
         group.setGroupNumber(resultSet.getInt("number"));
-        List<Student> students = new StudentDaoJdbc().findByGroup(group);
+        List<Student> students = studentDao.findByGroup(group);
         group.addStudents(students);
         
         return group;

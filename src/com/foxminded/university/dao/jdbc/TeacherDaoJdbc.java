@@ -18,6 +18,7 @@ import com.foxminded.university.domain.Teacher;
 
 public class TeacherDaoJdbc implements TeacherDao {
     private ConnectionFactory connFactory = new ConnectionFactory();
+    private CourseDaoJdbc courseDao = new CourseDaoJdbc();
     
     @Override
     public Teacher create(Teacher teacher) {
@@ -151,12 +152,12 @@ public class TeacherDaoJdbc implements TeacherDao {
         teacher.setLastName(resultSet.getString("last_name"));
         
         int courseId = resultSet.getInt("course");
-       
+        
         if (courseId != 0) {
-            Course course =  new CourseDaoJdbc().findById(courseId);
+            Course course = courseDao.findById(courseId);
             teacher.setCourse(course);
         }
-
+        
         return teacher;
     }
 }

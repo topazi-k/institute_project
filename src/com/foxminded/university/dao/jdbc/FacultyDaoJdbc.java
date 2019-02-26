@@ -19,6 +19,9 @@ import java.sql.PreparedStatement;
 public class FacultyDaoJdbc implements FacultyDao {
     
     private ConnectionFactory connFactory = new ConnectionFactory();
+    private TeacherDaoJdbc teacherDao = new TeacherDaoJdbc();
+    private GroupDaoJdbc groupDao = new GroupDaoJdbc();
+    private CourseDaoJdbc courseDao = new CourseDaoJdbc();
     
     @Override
     public Faculty create(Faculty faculty) {
@@ -246,9 +249,9 @@ public class FacultyDaoJdbc implements FacultyDao {
         Faculty faculty = new Faculty();
         faculty.setId(resultSet.getInt("id"));
         faculty.setName(resultSet.getString("name"));
-        List<Teacher> teachers = new TeacherDaoJdbc().findByFaculty(faculty);
-        List<Group> groups = new GroupDaoJdbc().findByFaculty(faculty);
-        List<Course> courses = new CourseDaoJdbc().findByFaculty(faculty);
+        List<Teacher> teachers =teacherDao.findByFaculty(faculty);
+        List<Group> groups = groupDao.findByFaculty(faculty);
+        List<Course> courses =courseDao.findByFaculty(faculty);
         faculty.addTeachers(teachers);
         faculty.addGroups(groups);
         faculty.addCourses(courses);
