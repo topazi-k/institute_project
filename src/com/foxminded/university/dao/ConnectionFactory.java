@@ -6,18 +6,18 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionFactory {
-    static Properties properties;
-    static String driverName;
-    static String url;
-    static String user;
-    static String password;
+    private static Properties properties;
+    private static String driverName;
+    private static String url;
+    private static String user;
+    private static String password;
     
     public Connection getConnection() {
         Connection connection = null;
         
         try {
             
-            if (driverName == null || url == null || user == null || password == null) {
+            if (properties==null) {
                 setProperties();
             }
             Class.forName(driverName);
