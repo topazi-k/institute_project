@@ -7,21 +7,18 @@ import java.util.Properties;
 
 public class ConnectionFactory {
     private static Properties properties;
-    private static String driverName;
-    private static String url;
-    private static String user;
-    private static String password;
     
     public Connection getConnection() {
         Connection connection = null;
         
         try {
             
-            if (properties==null) {
+            if (properties == null) {
                 setProperties();
             }
-            Class.forName(driverName);
-            connection = DriverManager.getConnection(url, user, password);
+            Class.forName((String) properties.getProperty("driverName"));
+            connection = DriverManager.getConnection((String) properties.getProperty("url"),
+                    (String) properties.getProperty("userName"), (String) properties.getProperty("password"));
             
         } catch (SQLException | ClassNotFoundException e) {
             throw new DaoException(e);
@@ -32,9 +29,6 @@ public class ConnectionFactory {
     private static void setProperties() {
         
         properties = ConnectionJdbcProperties.getProperties();
-        driverName = (String) properties.getProperty("driverName");
-        url = (String) properties.getProperty("url");
-        user = (String) properties.getProperty("userName");
-        password = (String) properties.getProperty("password");
     }
+    
 }
