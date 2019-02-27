@@ -21,7 +21,7 @@ public class Classroom {
         return number;
     }
     
-    public void setCpacity(int capacity) {
+    public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
     

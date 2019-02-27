@@ -6,7 +6,7 @@ public class Student {
     private int id;
     private String firstName;
     private String lastName;
-    private LocalDate birthDate;
+    private LocalDate birthDay;
     
     public void setId(int id) {
         this.id = id;
@@ -32,12 +32,12 @@ public class Student {
         return lastName;
     }
     
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthDay(LocalDate birthDay) {
+        this.birthDay = birthDay;
     }
     
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public LocalDate getBirthDay() {
+        return birthDay;
     }
     
     @Override
