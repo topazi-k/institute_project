@@ -21,14 +21,14 @@ import java.sql.PreparedStatement;
 public class StudentDaoJdbc implements StudentDao {
     
     private ConnectionFactory connFactory = new ConnectionFactory();
-    private static Logger logger = LogManager.getLogger();
+    private static Logger logger = LogManager.getLogger(StudentDaoJdbc.class);
     
     @Override
     public Student create(Student student) {
-        logger.info("Creating student");
+        logger.trace("Creating student with name" + student.getFirstName() + " " + student.getLastName());
         String sql = "INSERT INTO student (first_name,last_name,birth_day,\"group\") VALUES(?,?,?,null)";
         
-        logger.debug("trying to get Connection and PreparedStatement");
+        logger.debug("getting Connection and PreparedStatement");
         try (Connection connection = connFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             logger.trace("setting data to PreparedStatement");
@@ -38,27 +38,27 @@ public class StudentDaoJdbc implements StudentDao {
             
             logger.debug("executing update");
             statement.executeUpdate();
-            logger.debug("trying to get ResultSet");
+            logger.debug("getting ResultSet");
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
             
             student.setId(resultSet.getInt("id"));
             
         } catch (SQLException e) {
-            logger.error("can't create student");
+            logger.error("can't create student with name " + student.getFirstName() + " " + student.getLastName(), e);
             throw new DaoException(e);
         }
-        logger.trace("return student");
+        logger.info("created new student id - " + student.getId());
         return student;
     }
     
     @Override
     public Student findById(int id) {
-        logger.info("Finding student by id: " + id);
+        logger.trace("Finding student by id: " + id);
         Student student = null;
         String sql = "SELECT * FROM student WHERE id=?";
         
-        logger.debug("trying to get Connection and PreparedStatement");
+        logger.debug("getting Connection and PreparedStatement");
         try (Connection connection = connFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             logger.trace("setting student id to PreparedStatement");
@@ -67,34 +67,35 @@ public class StudentDaoJdbc implements StudentDao {
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             
-            logger.debug("Getting student from ResultSet");
+            logger.debug("Getting student with id - " + id + " from ResultSet");
             student = getStudentFromResultSet(resultSet);
             
         } catch (SQLException e) {
             logger.error("Can't find student id: " + id, e);
             throw new DaoException(e);
         }
-        logger.trace("return student");
+        logger.trace("return student with id - " + id);
         return student;
     }
     
     @Override
     public List<Student> findAll() {
-        logger.info("Finding all students");
+        logger.trace("Finding all students");
         Student student = null;
         List<Student> students = new ArrayList<>();
         String sql = "SELECT * FROM student";
         
-        logger.debug("trying to get Connection and PreparedStatement");
+        logger.debug("getting Connection and PreparedStatement");
         try (Connection connection = connFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             
-            logger.debug("trying to get ResultSet");
+            logger.debug("getting ResultSet");
             ResultSet resultSet = statement.executeQuery();
             
             logger.debug("getting students from ResultSet");
             while (resultSet.next()) {
                 student = getStudentFromResultSet(resultSet);
+                logger.trace("setting student with id - " + student.getId() + "to List students");
                 students.add(student);
             }
             
@@ -108,47 +109,48 @@ public class StudentDaoJdbc implements StudentDao {
     
     @Override
     public List<Student> findByGroup(Group group) {
-        logger.info("Finding students by group id -"+group.getId());
+        logger.trace("Finding students by group with id -" + group.getId());
         Student student = null;
         List<Student> students = new ArrayList<>();
         String sql = "SELECT * FROM student WHERE \"group\"=?";
         
-        logger.debug("trying to get Connection and PreparedStatement");
+        logger.debug("getting Connection and PreparedStatement");
         try (Connection connection = connFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             
             logger.trace("setting group id to PreparedStatement");
             statement.setInt(1, group.getId());
-            logger.debug("trying to get ResultSet");
+            logger.debug("getting ResultSet");
             ResultSet resultSet = statement.executeQuery();
             
             logger.debug("getting students from ResultSet");
             while (resultSet.next()) {
                 student = getStudentFromResultSet(resultSet);
+                logger.trace("setting student with id - " + student.getId() + "to List students");
                 students.add(student);
             }
             
         } catch (SQLException e) {
-            logger.error("Can't find students by group", e);
+            logger.error("Can't find students by group with id - " + group.getId(), e);
             throw new DaoException(e);
         }
-        logger.trace("return students");
+        logger.trace("return students from group id - " + group.getId());
         return students;
     }
     
     @Override
     public void update(Student student) {
-        logger.info("Updating student with id -"+student.getId());
+        logger.trace("Updating student with id -" + student.getId());
         StringBuilder sb = new StringBuilder("SELECT * FROM student WHERE id=");
         sb.append(student.getId());
         String sql = sb.toString();
         
-        logger.debug("trying to get Connection and create Statement");
+        logger.debug("getting Connection and create Statement");
         try (Connection connection = connFactory.getConnection();
                 Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY,
                         ResultSet.CONCUR_UPDATABLE)) {
             
-            logger.debug("trying to execute query and get ResultSet");
+            logger.debug("executing query and getting ResultSet");
             ResultSet resultSet = statement.executeQuery(sql);
             resultSet.next();
             
@@ -159,29 +161,29 @@ public class StudentDaoJdbc implements StudentDao {
             resultSet.updateRow();
             
         } catch (SQLException e) {
-            logger.error("can't update student",e);
+            logger.error("can't update student with id - " + student.getId(), e);
             throw new DaoException(e);
         }
-        
     }
     
     @Override
     public void delete(Student student) {
-        logger.info("Deleting student");
+        logger.trace("Deleting student with id - " + student.getId());
         String sql = "DELETE FROM student WHERE id=?";
-        logger.debug("trying to get Connection and PreparedStatiment");
+        logger.debug("getting Connection and PreparedStatiment");
         try (Connection connection = connFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             
             logger.trace("setting student id to PreparedStatement");
             statement.setInt(1, student.getId());
-            logger.debug("executing update");
+            logger.debug("executing deletion student with id - " + student.getId());
             statement.executeUpdate();
             
         } catch (SQLException e) {
-            logger.error("can't delete student",e);
+            logger.error("can't delete student with id - " + student.getId(), e);
             throw new DaoException(e);
         }
+        logger.info("Student with id - " + student.getId() + " deleted successfully");
     }
     
     private Student getStudentFromResultSet(ResultSet resultSet) throws SQLException {
