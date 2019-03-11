@@ -13,7 +13,7 @@ public class ConnectionFactory {
     private static Logger logger = LogManager.getLogger();
     
     public Connection getConnection() {
-        logger.info("Gettig connection");
+        logger.trace("Gettig connection");
         Connection connection = null;
         
         try {
@@ -30,7 +30,7 @@ public class ConnectionFactory {
                     (String) properties.getProperty("userName"), (String) properties.getProperty("password"));
             
         } catch (SQLException | ClassNotFoundException e) {
-            logger.error("can't get connection",e);
+            logger.error("can't get connection", e);
             throw new DaoException(e);
         }
         return connection;
