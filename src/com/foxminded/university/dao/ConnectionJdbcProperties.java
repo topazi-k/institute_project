@@ -11,7 +11,7 @@ public class ConnectionJdbcProperties {
     private static Logger logger = LogManager.getLogger(ConnectionJdbcProperties.class);
     
     public static Properties getProperties() {
-        logger.trace("Getting properties for jdbc connection");
+        logger.debug("Getting properties for jdbc connection");
         Properties properties = new Properties();
         
         logger.info("reading properties from file - properties/connectionJdbc.properties");
@@ -19,6 +19,7 @@ public class ConnectionJdbcProperties {
             
             logger.trace("loading properties to Properties object");
             properties.load(fIS);
+            
         } catch (IOException e) {
             logger.error("can't get properties", e);
             throw new DaoException(e);

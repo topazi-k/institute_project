@@ -50,5 +50,10 @@ public class Classroom {
             return false;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Classroom [number=" + number + ", capacity=" + capacity + "]";
+    }
     
 }

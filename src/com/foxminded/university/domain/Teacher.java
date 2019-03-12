@@ -60,4 +60,9 @@ public class Teacher {
         return true;
     }
     
+    @Override
+    public String toString() {
+        return "Teacher [firstName=" + firstName + ", lastName=" + lastName + ", course=" + course + "]";
+    }
+    
 }
