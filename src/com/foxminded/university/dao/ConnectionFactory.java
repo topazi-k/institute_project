@@ -18,26 +18,25 @@ public class ConnectionFactory {
         
         try {
             
-            logger.debug("checking properties on null");
+            logger.debug("Checking properties on null");
             if (properties == null) {
                 setProperties();
             }
-            logger.debug("finding jdbc driver");
+            logger.debug("Finding jdbc driver. Getting connection from DriverManager");
             Class.forName((String) properties.getProperty("driverName"));
-            logger.debug("getting connection from DriverManager");
             connection = DriverManager.getConnection((String) properties.getProperty("url"),
                     (String) properties.getProperty("userName"), (String) properties.getProperty("password"));
            
         } catch (SQLException | ClassNotFoundException e) {
-            logger.error("can't get connection", e);
+            logger.error("Can't get connection", e);
             throw new DaoException(e);
         }
-        logger.debug("return connection");
+        logger.debug("Return connection");
         return connection;
     }
     
     private static void setProperties() {
-        logger.debug("setting properties");
+        logger.debug("Setting properties");
         properties = ConnectionJdbcProperties.getProperties();
     }
     
