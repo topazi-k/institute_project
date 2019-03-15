@@ -31,11 +31,10 @@ public class StudentDaoJdbc implements StudentDao {
         log.debug("Getting Connection and PreparedStatement");
         try (Connection connection = connFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            System.out.println(statement.getClass());
             statement.setString(1, student.getFirstName());
             statement.setString(2, student.getLastName());
             statement.setObject(3, student.getBirthDay());
-            log.debug("Executing: "+statement);
+            log.debug("Executing: " + statement);
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
@@ -46,7 +45,7 @@ public class StudentDaoJdbc implements StudentDao {
             log.error("Can't create student with name " + student, e);
             throw new DaoException(e);
         }
-        log.info(student + " created successfully");
+        log.info("Student with id: " + student.getId() + "created successfully");
         return student;
     }
     
@@ -61,17 +60,17 @@ public class StudentDaoJdbc implements StudentDao {
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             
             statement.setInt(1, id);
-            log.debug("Executing: "+statement);
+            log.debug("Executing: " + statement);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             
             student = getStudentFromResultSet(resultSet);
             
         } catch (SQLException e) {
-            log.error("Can't find student id: " + id, e);
+            log.error("Can't find student with id: " + id, e);
             throw new DaoException(e);
         }
-        log.trace("Return - " + student);
+        log.trace("Return student with id: " + student.getId());
         return student;
     }
     
@@ -86,12 +85,12 @@ public class StudentDaoJdbc implements StudentDao {
         try (Connection connection = connFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             
-            log.debug("Executing: "+statement);
+            log.debug("Executing: " + statement);
             ResultSet resultSet = statement.executeQuery();
             
             while (resultSet.next()) {
                 student = getStudentFromResultSet(resultSet);
-                log.trace("Setting student " + student + "to List students");
+                log.trace("Setting student with id: " + student.getId() + "to List students");
                 students.add(student);
             }
             
@@ -105,7 +104,7 @@ public class StudentDaoJdbc implements StudentDao {
     
     @Override
     public List<Student> findByGroup(Group group) {
-        log.debug("Finding students by group " + group);
+        log.debug("Finding students by group with id:" + group.getId());
         Student student = null;
         List<Student> students = new ArrayList<>();
         String sql = "SELECT * FROM student WHERE \"group\"=?";
@@ -115,12 +114,12 @@ public class StudentDaoJdbc implements StudentDao {
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             
             statement.setInt(1, group.getId());
-            log.debug("Executing: "+statement);
+            log.debug("Executing: " + statement);
             ResultSet resultSet = statement.executeQuery();
             
             while (resultSet.next()) {
                 student = getStudentFromResultSet(resultSet);
-                log.trace("Setting student " + student + "to List students");
+                log.trace("Setting student with id: " + student.getId() + "to List students");
                 students.add(student);
             }
             
@@ -144,11 +143,11 @@ public class StudentDaoJdbc implements StudentDao {
                 Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY,
                         ResultSet.CONCUR_UPDATABLE)) {
             
-            log.debug("Executing: "+statement);
+            log.debug("Executing: " + statement);
             ResultSet resultSet = statement.executeQuery(sql);
             resultSet.next();
             
-            log.debug("Setting " + student + " to ResultSet and updating row");
+            log.debug("Setting with id: " + student.getId() + " to ResultSet and updating row");
             resultSet.updateString("first_name", student.getFirstName());
             resultSet.updateString("last_name", student.getLastName());
             resultSet.updateObject("birth_day", java.sql.Date.valueOf(student.getBirthDay()));
@@ -158,12 +157,12 @@ public class StudentDaoJdbc implements StudentDao {
             log.error("Can't update student - " + student, e);
             throw new DaoException(e);
         }
-        log.debug("Student updated successfully - " + student);
+        log.trace("Student with id"+student.getId()+" updated successfully - ");
     }
     
     @Override
     public void delete(Student student) {
-        log.debug("Deleting " + student);
+        log.debug("Deleting student with id: " + student.getId());
         String sql = "DELETE FROM student WHERE id=?";
         log.debug("Getting Connection and PreparedStatiment");
         try (Connection connection = connFactory.getConnection();
@@ -177,7 +176,7 @@ public class StudentDaoJdbc implements StudentDao {
             log.error("Can't delete student with id - " + student, e);
             throw new DaoException(e);
         }
-        log.info(student + " deleted successfully");
+        log.info("Student with id: "+student.getId()+" deleted successfully");
     }
     
     private Student getStudentFromResultSet(ResultSet resultSet) throws SQLException {
