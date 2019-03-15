@@ -10,3 +10,6 @@
 .settings/
 /src/simple/
 /.metadata/
+
+/RemoteSystemsTempFiles/
+/logFiles/

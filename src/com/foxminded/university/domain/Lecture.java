@@ -13,7 +13,7 @@ public class Lecture {
     private LocalTime time;
     
     public void setId(int id) {
-        this.id=id;
+        this.id = id;
     }
     
     public int getId() {
@@ -109,6 +109,12 @@ public class Lecture {
         } else if (!time.equals(other.time))
             return false;
         return true;
+    }
+    
+    @Override
+    public String toString() {
+        return "Lecture [group=" + group + ", teacher=" + teacher + ", course=" + course + ", classroom=" + classroom
+                + ", date=" + date + ", time=" + time + "]";
     }
     
 }

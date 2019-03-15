@@ -40,6 +40,7 @@ public class Group {
     public void addStudent(Student student) {
         students.add(student);
     }
+    
     public void addStudents(List<Student> students) {
         this.students.addAll(students);
     }
@@ -68,6 +69,11 @@ public class Group {
         if (id != other.id)
             return false;
         return true;
+    }
+    
+    @Override
+    public String toString() {
+        return "Group [groupNumber=" + groupNumber + ", groupName=" + groupName + "]";
     }
     
 }

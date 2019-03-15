@@ -51,4 +51,9 @@ public class Course {
         return true;
     }
     
+    @Override
+    public String toString() {
+        return "Course [name=" + name + ", description=" + description + "]";
+    }
+    
 }

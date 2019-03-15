@@ -95,5 +95,10 @@ public class Faculty {
             return false;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Faculty [name=" + name + "]";
+    }
     
 }

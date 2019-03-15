@@ -61,5 +61,11 @@ public class Student {
             return false;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthDay=" + birthDay
+                + "]";
+    }
     
 }
