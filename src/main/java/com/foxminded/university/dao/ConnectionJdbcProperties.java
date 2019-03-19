@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 public class ConnectionJdbcProperties {
     
     private static Logger log = LogManager.getLogger(ConnectionJdbcProperties.class);
-    private static final String PROPERTIES_FILE = "properties/connectionJdbc.properties";
+    private static final String PROPERTIES_FILE = "src/main/resources/properties/connectionJdbc.properties";
     
     public static Properties getProperties() {
         Properties properties = new Properties();
