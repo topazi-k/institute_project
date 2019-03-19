@@ -10,15 +10,14 @@ import org.apache.logging.log4j.Logger;
 public class ConnectionJdbcProperties {
     
     private static Logger log = LogManager.getLogger(ConnectionJdbcProperties.class);
-    private static final String PROPERTIES_FILE = "src/main/resources/properties/connectionJdbc.properties";
+    private static final String PROPERTIES_FILE = "connectionJdbc.properties";
     
     public static Properties getProperties() {
         Properties properties = new Properties();
         
         log.debug("Reading properties from file -" + PROPERTIES_FILE);
-        try (FileInputStream fIS = new FileInputStream(PROPERTIES_FILE);) {
-            
-            properties.load(fIS);
+        try {
+            properties.load(ClassLoader.getSystemResourceAsStream(PROPERTIES_FILE));
             
         } catch (IOException e) {
             log.error("Can't get properties", e);
