@@ -1,2 +1,0 @@
-﻿CREATE USER new_user PASSWORD '12345';
-GRANT ALL PRIVILEGES ON DATABASE university TO new_user;
