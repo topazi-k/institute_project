@@ -1,0 +1,27 @@
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd"
+	version="2.5">
+
+
+	<servlet>
+		<servlet-name>groups</servlet-name>
+		<servlet-class>com.foxminded.university.web.GroupsServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>groups</servlet-name>
+		<url-pattern>/groups</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>group</servlet-name>
+		<servlet-class>com.foxminded.university.web.GroupServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>group</servlet-name>
+		<url-pattern>/groups/group</url-pattern>
+	</servlet-mapping>
+
+</web-app>

@@ -1,7 +1,7 @@
 package com.foxminded.university.dao;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +17,10 @@ public class ConnectionJdbcProperties {
         
         log.debug("Reading properties from file -" + PROPERTIES_FILE);
         try {
-            properties.load(ClassLoader.getSystemResourceAsStream(PROPERTIES_FILE));
+            Thread currentThread = Thread.currentThread();
+            ClassLoader contextClassLoader = currentThread.getContextClassLoader();
+            InputStream propertiesStream = contextClassLoader.getResourceAsStream(PROPERTIES_FILE);
+            properties.load(propertiesStream);
             
         } catch (IOException e) {
             log.error("Can't get properties", e);
