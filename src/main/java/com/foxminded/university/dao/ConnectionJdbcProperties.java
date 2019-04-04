@@ -10,16 +10,15 @@ import org.apache.logging.log4j.Logger;
 public class ConnectionJdbcProperties {
     
     private static Logger log = LogManager.getLogger(ConnectionJdbcProperties.class);
-    private static final String PROPERTIES_FILE = "connectionJdbc.properties";
+    private static final String PROPERTIES_FILE = "/connectionJdbc.properties";
     
     public static Properties getProperties() {
         Properties properties = new Properties();
         
         log.debug("Reading properties from file -" + PROPERTIES_FILE);
         try {
-            Thread currentThread = Thread.currentThread();
-            ClassLoader contextClassLoader = currentThread.getContextClassLoader();
-            InputStream propertiesStream = contextClassLoader.getResourceAsStream(PROPERTIES_FILE);
+            
+            InputStream propertiesStream = ConnectionJdbcProperties.class.getResourceAsStream(PROPERTIES_FILE);
             properties.load(propertiesStream);
             
         } catch (IOException e) {

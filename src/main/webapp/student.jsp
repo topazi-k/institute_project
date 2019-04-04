@@ -6,17 +6,17 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Groups</title>
+<title>Student</title>
 </head>
 <body>
 
-	<h1 align="center">All Groups:</h1>
-
-	<ol>
-		<c:forEach items="${groups}" var="group">
-			<li><a href="groups/group?id=${group.id}">${group.groupName}</a></li>
-		</c:forEach>
-	</ol>
-
+	<h1>Student:</h1>
+	<br>
+	<p>First name: ${requestScope["student"].firstName}</p>
+	<br>
+	<p>Last name: ${requestScope["student"].lastName}</p>
+	<br>
+	<p>Birth day: ${requestScope["student"].birthDay}</p>
+	
 </body>
 </html>

@@ -9,16 +9,17 @@
 <title>Group</title>
 </head>
 <body>
+
 	<h1>Group: ${group.groupName}</h1>
 	<br>
 	<h2>Students List:</h2>
 	<br>
 	<ol>
 		<c:forEach items="${group.students}" var="student">
-
-			<li>${student.firstName}  ${student.birthDay }</li>
-
+			<li><a href="group/student?id=${student.id}">${student.firstName}
+					${student.lastName}</a></li>
 		</c:forEach>
 	</ol>
+
 </body>
 </html>
