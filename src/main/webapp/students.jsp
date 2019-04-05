@@ -6,20 +6,16 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Group</title>
+<title>Students</title>
 </head>
-<body>
 
-	<h1>Group: ${group.groupName}</h1>
-	<br>
-	<h2>Students List:</h2>
-	<br>
+<body>
+	<h1 align="center">All Students:</h1>
 	<ol>
-		<c:forEach items="${group.students}" var="student">
-			<li><a href="students/student?id=${student.id}">${student.firstName}
-					${student.lastName}</a></li>
+		<c:forEach items="${students}" var="student">
+			<li><a href="students/student?id=${student.id}">${student.firstName} ${student.lastName}</a></li>
 		</c:forEach>
 	</ol>
-
+	
 </body>
 </html>
