@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.foxminded.university.domain.Group;
 import com.foxminded.university.service.GroupService;
 
-@WebServlet("/groups/group")
-public class GroupServlet extends HttpServlet {
+@WebServlet("/groups/students")
+public class StudentsServlet extends HttpServlet {
     
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -20,7 +20,7 @@ public class GroupServlet extends HttpServlet {
         int groupId = Integer.parseInt(request.getParameter("id"));
         Group group = new GroupService().findById(groupId);
         request.setAttribute("group", group);
-        getServletContext().getRequestDispatcher("/group.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/students.jsp").forward(request, response);
     }
     
 }

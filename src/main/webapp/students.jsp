@@ -16,7 +16,7 @@
 	<br>
 	<ol>
 		<c:forEach items="${group.students}" var="student">
-			<li><a href="group/student?id=${student.id}">${student.firstName}
+			<li><a href="students/student?id=${student.id}">${student.firstName}
 					${student.lastName}</a></li>
 		</c:forEach>
 	</ol>
