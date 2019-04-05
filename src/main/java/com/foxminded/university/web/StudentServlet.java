@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.foxminded.university.domain.Student;
 import com.foxminded.university.service.StudentService;
 
-@WebServlet("/students/student")
+@WebServlet("/student")
 public class StudentServlet extends HttpServlet {
     
     @Override

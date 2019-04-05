@@ -14,7 +14,7 @@
 
 	<ol>
 		<c:forEach items="${groups}" var="group">
-			<li><a href="groups/group?id=${group.id}">${group.groupName}</a></li>
+			<li><a href="./group?id=${group.id}">${group.groupName}</a></li>
 		</c:forEach>
 	</ol>
 

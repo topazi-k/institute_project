@@ -13,7 +13,7 @@
 	<h1 align="center">All Students:</h1>
 	<ol>
 		<c:forEach items="${students}" var="student">
-			<li><a href="students/student?id=${student.id}">${student.firstName} ${student.lastName}</a></li>
+			<li><a href="./student?id=${student.id}">${student.firstName} ${student.lastName}</a></li>
 		</c:forEach>
 	</ol>
 	
