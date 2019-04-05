@@ -12,11 +12,11 @@
 
 	<h1>Student:</h1>
 	<br>
-	<p>First name: ${requestScope["student"].firstName}</p>
+	<p>First name: ${student.firstName}</p>
 	<br>
-	<p>Last name: ${requestScope["student"].lastName}</p>
+	<p>Last name: ${student.lastName}</p>
 	<br>
-	<p>Birth day: ${requestScope["student"].birthDay}</p>
-	
+	<p>Birth day: ${student.birthDay}</p>
+
 </body>
 </html>

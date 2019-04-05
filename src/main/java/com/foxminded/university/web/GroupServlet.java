@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.foxminded.university.domain.Group;
 import com.foxminded.university.service.GroupService;
 
-@WebServlet("/groups/group")
+@WebServlet("/group")
 public class GroupServlet extends HttpServlet {
     
     @Override
