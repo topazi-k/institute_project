@@ -67,7 +67,7 @@ public class FacultyDaoJdbc implements FacultyDao {
     public List<Faculty> findAll() {
         Faculty faculty = null;
         List<Faculty> faculties = new ArrayList<>();
-        String sql = "SELECT * FROM facuty";
+        String sql = "SELECT * FROM faculty";
         
         try (Connection connection = connFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -249,9 +249,9 @@ public class FacultyDaoJdbc implements FacultyDao {
         Faculty faculty = new Faculty();
         faculty.setId(resultSet.getInt("id"));
         faculty.setName(resultSet.getString("name"));
-        List<Teacher> teachers =teacherDao.findByFaculty(faculty);
+        List<Teacher> teachers = teacherDao.findByFaculty(faculty);
         List<Group> groups = groupDao.findByFaculty(faculty);
-        List<Course> courses =courseDao.findByFaculty(faculty);
+        List<Course> courses = courseDao.findByFaculty(faculty);
         faculty.addTeachers(teachers);
         faculty.addGroups(groups);
         faculty.addCourses(courses);
