@@ -13,20 +13,23 @@ import com.foxminded.university.domain.Teacher;
 import java.time.LocalDate;
 
 public class UniversityService {
-    private List<Faculty> faculties = new ArrayList<>();
-    private List<Classroom> classrooms = new ArrayList<>();
-    private List<Lecture> schedule = new ArrayList<>();
+    private List<Faculty> faculties = new FacultyService().findAll();
+    private List<Lecture> schedule = new LectureService().findAll();
     
     public List<Faculty> getFaculties() {
         return faculties;
     }
     
-    public List<Classroom> getClassrooms() {
-        return classrooms;
-    }
-    
     public List<Lecture> getSchedule() {
         return schedule;
+    }
+    
+    public void setFaculties(List<Faculty> faculties) {
+        this.faculties = faculties;
+    }
+    
+    public void setSchedule(List<Lecture> schedule) {
+        this.schedule = schedule;
     }
     
     public void addFaculty(Faculty faculty) {
@@ -37,14 +40,6 @@ public class UniversityService {
         faculties.remove(faculty);
     }
     
-    public void addClassroom(Classroom classroom) {
-        classrooms.add(classroom);
-    }
-    
-    public void removeClassroom(Classroom classroom) {
-        classrooms.remove(classroom);
-    }
-    
     public void addLecture(Lecture lecture) {
         schedule.add(lecture);
     }
@@ -53,8 +48,8 @@ public class UniversityService {
         schedule.remove(lecture);
     }
     
-    public List<Lecture> getTeacherSchedule(Teacher teacher, TimePeriodService timePeriod) {
-        if (teacher == null) {
+    public List<Lecture> getTeacherSchedule(int teacherId, TimePeriodService timePeriod) {
+        if (teacherId == 0) {
             throw new IllegalArgumentException("teacher is null");
         }
         if (timePeriod == null) {
@@ -63,6 +58,7 @@ public class UniversityService {
         if (timePeriod.getStartOfPeriod().isAfter(timePeriod.getEndOfPeriod())) {
             throw new IllegalArgumentException("incorrect timePeriod");
         }
+        Teacher teacher=new TeacherService().findById(teacherId);
         List<Lecture> fullTeacherSchedule = new ArrayList<>();
         List<Lecture> teacherScheduleInPeriod = new ArrayList<>();
         for (Lecture lecture : schedule) {
@@ -85,9 +81,10 @@ public class UniversityService {
         return teacherScheduleInPeriod;
     }
     
-    public List<Lecture> getStudentSchedule(Student student, TimePeriodService timePeriod) {
-        if (student == null) {
-            throw new IllegalArgumentException("studint is null");
+    public List<Lecture> getStudentSchedule(int studentId, TimePeriodService timePeriod) {
+        
+        if (studentId == 0) {
+            throw new IllegalArgumentException("student id is null");
         }
         if (timePeriod == null) {
             throw new IllegalArgumentException("timePeriod is null");
@@ -95,6 +92,7 @@ public class UniversityService {
         if (timePeriod.getStartOfPeriod().isAfter(timePeriod.getEndOfPeriod())) {
             throw new IllegalArgumentException("incorrect timePeriod");
         }
+        Student student = new StudentService().findById(studentId);
         List<Lecture> fullStudentSchedule = new ArrayList<>();
         List<Lecture> studentScheduleInPeriod = new ArrayList<>();
         Group studentGroup = findStudentGroup(student);
