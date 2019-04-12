@@ -6,16 +6,17 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Students</title>
+<title>Courses</title>
 </head>
-
 <body>
-	<h1 align="center">All Students:</h1>
+
+	<h1 align="center">All classrooms:</h1>
+
 	<ol>
-		<c:forEach items="${students}" var="student">
-			<li><a href="./student?id=${student.id}">${student.firstName} ${student.lastName}</a></li>
+		<c:forEach items="${classrooms}" var="classroom">
+			<li><a href="./classroom?id=${classroom.id}">${classroom.number}</a></li>
 		</c:forEach>
 	</ol>
-	
+
 </body>
 </html>

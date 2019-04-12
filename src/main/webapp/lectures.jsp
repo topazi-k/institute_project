@@ -6,16 +6,19 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Students</title>
+<title>Lectures</title>
 </head>
-
 <body>
-	<h1 align="center">All Students:</h1>
+
+	<h1 align="center">All lectures:</h1>
+
 	<ol>
-		<c:forEach items="${students}" var="student">
-			<li><a href="./student?id=${student.id}">${student.firstName} ${student.lastName}</a></li>
+		<c:forEach items="${lectures}" var="lecture">
+			<li><a href="./lecture?id=${lecture.id}">
+					Date-${lecture.date} course-${lecture.course.name}
+					group-${lecture.group.groupName}</a></li>
 		</c:forEach>
 	</ol>
-	
+
 </body>
 </html>
