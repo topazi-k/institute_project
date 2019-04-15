@@ -15,7 +15,11 @@ public class CourseService {
     }
     
     public Course findById(int id) {
-        return courseDao.findById(id);
+        Course course = courseDao.findById(id);
+        if (course == null) {
+            throw new DataNotFoundException();
+        }
+        return course;
     }
     
     public List<Course> findAll() {

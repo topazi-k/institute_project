@@ -77,10 +77,7 @@ public class UniversityService {
                 
             }
             teacherScheduleInPeriod.add(lecture);
-        }
-        if (teacherScheduleInPeriod.isEmpty()) {
-            throw new DataNotFoundException();
-        }
+        }       
         return teacherScheduleInPeriod;
     }
     
@@ -114,9 +111,6 @@ public class UniversityService {
                 continue;
             }
             studentScheduleInPeriod.add(lecture);
-        }
-        if (studentScheduleInPeriod.isEmpty()) {
-            throw new DataNotFoundException();
         }
         return studentScheduleInPeriod;
     }

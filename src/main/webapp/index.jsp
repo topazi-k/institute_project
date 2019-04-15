@@ -33,6 +33,9 @@
 	<h2>
 		<a href="./schedule?id=student">Find schedule for student</a>
 	</h2>
-
+	
+	<form action="./student">
+	<input type="text" size="2" name="id"><small>find student by id(test)</small>
+	<input type="submit" value="Send" /></form>
 </body>
 </html>

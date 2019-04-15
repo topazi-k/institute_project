@@ -48,7 +48,9 @@ public class CourseDaoJdbc implements CourseDao {
             
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
+            if (!resultSet.next()) {
+                return course;
+            }
             
             course = getCourseFromResultSet(resultSet);
             

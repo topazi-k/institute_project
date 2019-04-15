@@ -17,7 +17,11 @@ public class FacultyService {
     }
     
     public Faculty findById(int id) {
-        return facultyDao.findById(id);
+        Faculty faculty = facultyDao.findById(id);
+        if (faculty == null) {
+            throw new DataNotFoundException();
+        }
+        return faculty;
     }
     
     public List<Faculty> findAll() {

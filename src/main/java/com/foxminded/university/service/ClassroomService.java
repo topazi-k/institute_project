@@ -15,7 +15,11 @@ public class ClassroomService {
     }
     
     public Classroom findById(int id) {
-        return classroomDao.findById(id);
+        Classroom classroom = classroomDao.findById(id);
+        if (classroom == null) {
+            throw new DataNotFoundException();
+        }
+        return classroom;
     }
     
     public List<Classroom> findAll() {

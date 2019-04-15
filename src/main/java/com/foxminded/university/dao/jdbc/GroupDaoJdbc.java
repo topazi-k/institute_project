@@ -52,7 +52,9 @@ public class GroupDaoJdbc implements GroupDao {
             
             statement.setInt(1, groupId);
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
+            if (!resultSet.next()) {
+                return group;
+            }
             
             group = getGroupFromResultSet(resultSet);
             
