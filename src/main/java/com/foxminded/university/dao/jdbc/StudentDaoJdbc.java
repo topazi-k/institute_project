@@ -62,7 +62,9 @@ public class StudentDaoJdbc implements StudentDao {
             statement.setInt(1, id);
             log.debug("Executing: " + statement);
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
+            if(!resultSet.next()) {
+                return student;
+            }
             
             student = getStudentFromResultSet(resultSet);
             

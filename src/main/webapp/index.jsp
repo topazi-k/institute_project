@@ -9,20 +9,30 @@
 <title>University</title>
 </head>
 <body>
-	
+
 	<h1>University</h1>
-	
+
 	<br>
-	<h2><a href="./faculties">Faculties</a></h2>
-	
+	<h2>
+		<a href="./faculties">Faculties</a>
+	</h2>
+
 	<br>
-	<h2><a href="./classrooms">Classrooms</a></h2>
-	
+	<h2>
+		<a href="./classrooms">Classrooms</a>
+	</h2>
+
 	<br>
-	<h2><a href="./lectures">Schedule</a></h2>
-	
-	<h2><a href="./schedule?id=teacher">Find schedule for teacher</a></h2>	
-	<h2><a href="./schedule?id=student">Find schedule for student</a></h2>
+	<h2>
+		<a href="./lectures">Schedule</a>
+	</h2>
+
+	<h2>
+		<a href="./schedule?id=teacher">Find schedule for teacher</a>
+	</h2>
+	<h2>
+		<a href="./schedule?id=student">Find schedule for student</a>
+	</h2>
 
 </body>
 </html>
