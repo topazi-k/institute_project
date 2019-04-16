@@ -17,7 +17,11 @@ public class GroupService {
     }
     
     public Group findById(int id) {
-        return groupDao.findById(id);
+        Group group = groupDao.findById(id);
+        if (group == null) {
+            throw new DataNotFoundException();
+        }
+        return group;
     }
     
     public List<Group> findByFaculty(Faculty faculty) {

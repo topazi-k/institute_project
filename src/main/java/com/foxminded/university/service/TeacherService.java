@@ -15,7 +15,11 @@ public class TeacherService {
     }
     
     public Teacher findById(int id) {
-        return teacherDao.findById(id);
+        Teacher teacher = teacherDao.findById(id);
+        if (teacher == null) {
+            throw new DataNotFoundException();
+        }
+        return teacher;
     }
     
     public List<Teacher> findAll() {

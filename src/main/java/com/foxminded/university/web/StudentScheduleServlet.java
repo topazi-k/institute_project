@@ -1,6 +1,7 @@
 package com.foxminded.university.web;
 
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,8 @@ public class StudentScheduleServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int studentId = Integer.parseInt(request.getParameter("id"));
         List<Lecture> schedule = new ArrayList<>();
-        TimePeriodService timePeriod;
+        TimePeriodService timePeriod = null;
+        
         if (request.getParameter("period").equals("day")) {
             int dayOfMonth = Integer.parseInt(request.getParameter("day"));
             int month = Integer.parseInt(request.getParameter("month"));
@@ -30,8 +32,7 @@ public class StudentScheduleServlet extends HttpServlet {
             LocalDate date = LocalDate.of(year, month, dayOfMonth);
             timePeriod = new TimePeriodService(date);
             
-           
-        }else {
+        } else {
             int dayOfMonth = Integer.parseInt(request.getParameter("day"));
             int month = Integer.parseInt(request.getParameter("month"));
             int year = Integer.parseInt(request.getParameter("year"));
@@ -40,9 +41,14 @@ public class StudentScheduleServlet extends HttpServlet {
             int yearLast = Integer.parseInt(request.getParameter("last_year"));
             LocalDate dateStart = LocalDate.of(year, month, dayOfMonth);
             LocalDate dateEnd = LocalDate.of(yearLast, monthLast, dayOfMonthLast);
-            timePeriod = new TimePeriodService(dateStart,dateEnd);
+            timePeriod = new TimePeriodService(dateStart, dateEnd);
         }
-        schedule = new UniversityService().getStudentSchedule(studentId, timePeriod);
+        try {
+            schedule = new UniversityService().getStudentSchedule(studentId, timePeriod);
+        } catch (com.foxminded.university.service.DataNotFoundException e) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
         request.setAttribute("schedule", schedule);
         getServletContext().getRequestDispatcher("/student_schedule.jsp").forward(request, response);
     }

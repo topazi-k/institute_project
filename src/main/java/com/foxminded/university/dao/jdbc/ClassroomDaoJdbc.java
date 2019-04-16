@@ -48,7 +48,9 @@ public class ClassroomDaoJdbc implements ClassroomDao {
             
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
+            if (!resultSet.next()) {
+                return classroom;
+            }
             
             classroom = getClassroomFromResultSet(resultSet);
             

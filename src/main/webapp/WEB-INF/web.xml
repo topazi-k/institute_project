@@ -2,4 +2,15 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd"
 	version="2.5">
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404error.jsp</location>
+	</error-page>
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/exception_handler</location>
+	</error-page>
+
 </web-app>

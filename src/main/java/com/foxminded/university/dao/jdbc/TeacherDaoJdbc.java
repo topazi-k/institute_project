@@ -53,7 +53,9 @@ public class TeacherDaoJdbc implements TeacherDao {
             
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
+            if (!resultSet.next()) {
+                return teacher;
+            }
             
             teacher = getTeacherFromResultSet(resultSet);
             

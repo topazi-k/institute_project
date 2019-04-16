@@ -15,7 +15,11 @@ public class StudentService {
     }
     
     public Student findById(int id) {
-        return studentDao.findById(id);
+        Student student = studentDao.findById(id);
+        if (student == null) {
+            throw new DataNotFoundException();
+        }
+        return student;
     }
     
     public List<Student> findAll() {

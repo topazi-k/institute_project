@@ -62,7 +62,9 @@ public class LectureDaoJdbc implements LectureDao {
             
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
+            if (!resultSet.next()) {
+                return lecture;
+            }
             
             lecture = getLectureFromResultSet(resultSet);
             lectures.add(lecture);

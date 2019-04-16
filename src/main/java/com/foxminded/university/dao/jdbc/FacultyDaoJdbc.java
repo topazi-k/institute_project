@@ -53,7 +53,9 @@ public class FacultyDaoJdbc implements FacultyDao {
             
             stmt.setInt(1, id);
             ResultSet resultSet = stmt.executeQuery();
-            resultSet.next();
+            if (!resultSet.next()) {
+                return faculty;
+            }
             
             faculty = getFacultyFromResultSet(resultSet);
             

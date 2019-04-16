@@ -62,7 +62,9 @@ public class StudentDaoJdbc implements StudentDao {
             statement.setInt(1, id);
             log.debug("Executing: " + statement);
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
+            if (!resultSet.next()) {
+                return student;
+            }
             
             student = getStudentFromResultSet(resultSet);
             
@@ -157,7 +159,7 @@ public class StudentDaoJdbc implements StudentDao {
             log.error("Can't update student - " + student, e);
             throw new DaoException(e);
         }
-        log.trace("Student with id"+student.getId()+" updated successfully - ");
+        log.trace("Student with id" + student.getId() + " updated successfully - ");
     }
     
     @Override
@@ -176,7 +178,7 @@ public class StudentDaoJdbc implements StudentDao {
             log.error("Can't delete student with id - " + student, e);
             throw new DaoException(e);
         }
-        log.info("Student with id: "+student.getId()+" deleted successfully");
+        log.info("Student with id: " + student.getId() + " deleted successfully");
     }
     
     private Student getStudentFromResultSet(ResultSet resultSet) throws SQLException {

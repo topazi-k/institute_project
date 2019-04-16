@@ -16,12 +16,12 @@ import com.foxminded.university.service.TimePeriodService;
 import com.foxminded.university.service.UniversityService;
 
 @WebServlet("/teacher_schedule")
-public class TeacherScheduleServlet extends HttpServlet{
+public class TeacherScheduleServlet extends HttpServlet {
     
     @Override
-    public void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-        int teacherId=Integer.parseInt(request.getParameter("id"));
-        List<Lecture> schedule=new ArrayList<>();
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int teacherId = Integer.parseInt(request.getParameter("id"));
+        List<Lecture> schedule = new ArrayList<>();
         TimePeriodService timePeriod;
         if (request.getParameter("period").equals("day")) {
             int dayOfMonth = Integer.parseInt(request.getParameter("day"));
@@ -30,8 +30,7 @@ public class TeacherScheduleServlet extends HttpServlet{
             LocalDate date = LocalDate.of(year, month, dayOfMonth);
             timePeriod = new TimePeriodService(date);
             
-           
-        }else {
+        } else {
             int dayOfMonth = Integer.parseInt(request.getParameter("day"));
             int month = Integer.parseInt(request.getParameter("month"));
             int year = Integer.parseInt(request.getParameter("year"));
@@ -40,9 +39,14 @@ public class TeacherScheduleServlet extends HttpServlet{
             int yearLast = Integer.parseInt(request.getParameter("last_year"));
             LocalDate dateStart = LocalDate.of(year, month, dayOfMonth);
             LocalDate dateEnd = LocalDate.of(yearLast, monthLast, dayOfMonthLast);
-            timePeriod = new TimePeriodService(dateStart,dateEnd);
+            timePeriod = new TimePeriodService(dateStart, dateEnd);
         }
-        schedule = new UniversityService().getTeacherSchedule(teacherId, timePeriod);
+        try {
+            schedule = new UniversityService().getTeacherSchedule(teacherId, timePeriod);
+        } catch (com.foxminded.university.service.DataNotFoundException e) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
         request.setAttribute("schedule", schedule);
         getServletContext().getRequestDispatcher("/teacher_schedule.jsp").forward(request, response);
     }

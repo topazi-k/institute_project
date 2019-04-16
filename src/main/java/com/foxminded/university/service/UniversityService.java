@@ -50,7 +50,7 @@ public class UniversityService {
     
     public List<Lecture> getTeacherSchedule(int teacherId, TimePeriodService timePeriod) {
         if (teacherId == 0) {
-            throw new IllegalArgumentException("teacher is null");
+            throw new IllegalArgumentException("teacher id is null");
         }
         if (timePeriod == null) {
             throw new IllegalArgumentException("timePeriod is null");
@@ -58,7 +58,7 @@ public class UniversityService {
         if (timePeriod.getStartOfPeriod().isAfter(timePeriod.getEndOfPeriod())) {
             throw new IllegalArgumentException("incorrect timePeriod");
         }
-        Teacher teacher=new TeacherService().findById(teacherId);
+        Teacher teacher = new TeacherService().findById(teacherId);
         List<Lecture> fullTeacherSchedule = new ArrayList<>();
         List<Lecture> teacherScheduleInPeriod = new ArrayList<>();
         for (Lecture lecture : schedule) {
