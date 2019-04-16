@@ -77,7 +77,7 @@ public class UniversityService {
                 
             }
             teacherScheduleInPeriod.add(lecture);
-        }       
+        }
         return teacherScheduleInPeriod;
     }
     

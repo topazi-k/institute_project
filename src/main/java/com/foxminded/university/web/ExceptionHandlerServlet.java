@@ -15,10 +15,6 @@ public class ExceptionHandlerServlet extends HttpServlet {
     }
     
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
-        if (statusCode == 404) {
-            getServletContext().getRequestDispatcher("/404error.jsp").forward(request, response);
-        }
         
         Throwable throwable = (Throwable) request.getAttribute("javax.servlet.error.exception");
         

@@ -1,6 +1,6 @@
 package com.foxminded.university.service;
 
-public class DataNotFoundException extends RuntimeException{
+public class DataNotFoundException extends RuntimeException {
     public DataNotFoundException() {
         super();
     }
@@ -10,7 +10,7 @@ public class DataNotFoundException extends RuntimeException{
     }
     
     public DataNotFoundException(Throwable cause) {
-        super (cause);
+        super(cause);
     }
     
     public DataNotFoundException(String message) {

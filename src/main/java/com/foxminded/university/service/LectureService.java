@@ -17,8 +17,8 @@ public class LectureService {
     }
     
     public Lecture findById(int id) {
-        Lecture lecture=lectureDao.findById(id);
-        if(lecture==null) {
+        Lecture lecture = lectureDao.findById(id);
+        if (lecture == null) {
             throw new DataNotFoundException();
         }
         return lecture;

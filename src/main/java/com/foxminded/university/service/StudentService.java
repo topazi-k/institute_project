@@ -15,8 +15,8 @@ public class StudentService {
     }
     
     public Student findById(int id) {
-        Student student=studentDao.findById(id);
-        if(student==null) {
+        Student student = studentDao.findById(id);
+        if (student == null) {
             throw new DataNotFoundException();
         }
         return student;
