@@ -30,6 +30,10 @@ public class StudentService {
         return studentDao.findByGroup(group);
     }
     
+    public List<Student> findStudentsWithoutGroup() {
+        return studentDao.findStudentsWithoutGroup();
+    }
+    
     public void update(Student student) {
         studentDao.update(student);
     }

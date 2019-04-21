@@ -18,5 +18,34 @@
 		</c:forEach>
 	</ol>
 
+	<form action="./groups">
+		<fieldset>
+			<legend>Create new group</legend>
+			<input name="crud_type" value="create" hidden /> 
+			
+			<input type="text" size="12"name="name" required /><small>Group name</small><br>
+			<input type="text" size="12" name="number" required /><small>Group number(integer value)<br>
+			
+			<input type="submit" value="Create"/>
+		</fieldset>
+	</form>
+	
+	<form action="./groups">
+		<fieldset>
+			<legend>Delete group </legend>
+			<input name="crud_type" value="delete" hidden /> 
+			<p>Groups:
+			<select name="id">
+				<c:forEach items="${groups}" var="group">
+					<option value="${group.id}">name:${group.groupName} number:${group.groupNumber} </option>
+				</c:forEach>
+			</select> <br>
+			</p>
+			<input type="submit" value="Delete" />
+		</fieldset>
+	</form>
+	
+	<p><a href="./faculties"></a></p>
+	
 </body>
 </html>

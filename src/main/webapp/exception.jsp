@@ -11,6 +11,6 @@
     <title>Exception</title>
   </head>
   <body>
-   <h1>Something went wrong</h1>
+   <h1>Something went wrong: ${message }</h1>
   </body>
 </html>

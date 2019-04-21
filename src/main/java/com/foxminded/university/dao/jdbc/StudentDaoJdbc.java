@@ -134,6 +134,34 @@ public class StudentDaoJdbc implements StudentDao {
     }
     
     @Override
+    public List<Student> findStudentsWithoutGroup() {
+        log.debug("Finding students without group");
+        Student student = null;
+        List<Student> students = new ArrayList<>();
+        String sql = "SELECT * FROM student where (\"group\" is null)";
+        
+        log.debug("Getting Connection and PreparedStatement");
+        try (Connection connection = connFactory.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            
+            log.debug("Executing: " + statement);
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {
+                student = getStudentFromResultSet(resultSet);
+                log.trace("Setting student with id: " + student.getId() + "to List students");
+                students.add(student);
+            }
+            
+        } catch (SQLException e) {
+            log.error("Can't find students without group", e);
+            throw new DaoException(e);
+        }
+        log.trace("Return studentsList. Size - " + students.size());
+        return students;
+    }
+    
+    @Override
     public void update(Student student) {
         log.debug("Updating  -" + student);
         StringBuilder sb = new StringBuilder("SELECT * FROM student WHERE id=");
