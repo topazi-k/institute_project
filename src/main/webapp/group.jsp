@@ -23,10 +23,9 @@
 		</c:forEach>
 	</ol>
 	
-	<form action="./group">
+	<form action='<c:url value="/group/add_student"/>' method="post">
 		<fieldset>
 			<legend>Add student</legend>
-			<input name="crud_type" value="add_student" hidden />
 			<input name="id" value="${group.id }" hidden/>
 			<p>Name:
 			<select name="student_id">
@@ -40,10 +39,9 @@
 		</fieldset>
 	</form>
 	
-	<form action="./group">
+	<form action='<c:url value="/group/remove_student"/>' method="post">
 		<fieldset>
 			<legend>Remove student</legend>
-			<input name="crud_type" value="remove_student" hidden />
 			<input name="id" value="${group.id }" hidden/>
 			<p>Name:
 			<select name="student_id">
@@ -57,16 +55,15 @@
 		</fieldset>
 	</form>
 	
-	<form action="./group">
+	<form action='<c:url value="/group"/>' method="post">
 		<fieldset>
 			<legend>Update information about group</legend>
-			<input name="crud_type" value="update" hidden />
 			<input name="id" value="${group.id }" hidden/>
 			<input type="text" size="7" name="number" required/><small>New number</small><br>
 			<input type="text" size="12" name="name" required/><small>New name</small><br><br>
 			<input type="submit" value="Update"/>
 		</fieldset>
 	</form>
-	<p><a href="./groups">Groups List</a></p>
+	<p><a href='<c:url value="/groups"/>'>Groups List</a></p>
 </body>
 </html>

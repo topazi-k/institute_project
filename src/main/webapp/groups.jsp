@@ -14,14 +14,13 @@
 
 	<ol>
 		<c:forEach items="${groups}" var="group">
-			<li><a href="./group?id=${group.id}">${group.groupName}</a></li>
+			<li><a href='<c:url value="/group?id=${group.id}"/>'>${group.groupName}</a></li>
 		</c:forEach>
 	</ol>
 
-	<form action="./groups">
+	<form action='<c:url value="/groups"/>' method="post">
 		<fieldset>
-			<legend>Create new group</legend>
-			<input name="crud_type" value="create" hidden /> 
+			<legend>Create new group</legend> 
 			
 			<input type="text" size="12"name="name" required /><small>Group name</small><br>
 			<input type="text" size="12" name="number" required /><small>Group number(integer value)<br>
@@ -30,10 +29,10 @@
 		</fieldset>
 	</form>
 	
-	<form action="./groups">
+	<form action='<c:url value="/group/delete"/>' method="post">
 		<fieldset>
 			<legend>Delete group </legend>
-			<input name="crud_type" value="delete" hidden /> 
+			
 			<p>Groups:
 			<select name="id">
 				<c:forEach items="${groups}" var="group">
@@ -45,7 +44,7 @@
 		</fieldset>
 	</form>
 	
-	<p><a href="./faculties"></a></p>
+	<p><a href='<c:url value="/faculties"/>'></a></p>
 	
 </body>
 </html>

@@ -13,14 +13,14 @@
 	<h1 align="center">All Students:</h1>
 	<ol>
 		<c:forEach items="${students}" var="student">
-			<li><a href="./student?id=${student.id}">${student.firstName} ${student.lastName}</a></li>
+			<li><a href='<c:url value="/student?id=${student.id}"/>'>${student.firstName} ${student.lastName}</a></li>
 		</c:forEach>
 	</ol>
 	
-	<form action="./students">
+	<form action='<c:url value="/students" />' method="post">
 		<fieldset>
 			<legend>Create new student</legend>
-			<input name="crud_type" value="create" hidden /> 
+			
 			
 			<input type="text" size="12"name="first_name" required /><small>First name</small><br>
 			<input type="text" size="12" name="last_name" required /><small>Last name</small><br>
@@ -34,10 +34,9 @@
 		</fieldset>
 	</form>
 	
-	<form action="./students">
+	<form action='<c:url value="/student/delete" />' method="post">
 		<fieldset>
 			<legend>Delete student </legend>
-			<input name="crud_type" value="delete" hidden /> 
 			<p>Name:
 			<select name="id">
 				<c:forEach items="${students}" var="student">
@@ -50,7 +49,7 @@
 		</fieldset>
 	</form>
 	
-	<p><a href="./groups"></a></p>
+	<p><a href='<c:url value="/groups"/>'>All groups</a></p>
 	
 </body>
 </html>

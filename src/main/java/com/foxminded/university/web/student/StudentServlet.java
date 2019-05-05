@@ -1,4 +1,4 @@
-package com.foxminded.university.web;
+package com.foxminded.university.web.student;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -20,15 +20,6 @@ public class StudentServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        if (request.getParameter("crud_type") == null) {
-            findById(request, response);
-        } else if (request.getParameter("crud_type").equals("update")) {
-            update(request, response);
-        }
-    }
-    
-    private void findById(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
         int studentId = Integer.parseInt(request.getParameter("id"));
         Student student;
         
@@ -43,7 +34,8 @@ public class StudentServlet extends HttpServlet {
         getServletContext().getRequestDispatcher("/student.jsp").forward(request, response);
     }
     
-    private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         Student student = new Student();
         int id = (Integer.parseInt(request.getParameter("id")));
@@ -56,7 +48,9 @@ public class StudentServlet extends HttpServlet {
         int year = Integer.parseInt(request.getParameter("year"));
         student.setBirthDay(LocalDate.of(year, month, dayOfMonth));
         studentService.update(student);
-        findById(request, response);
+        student = studentService.findById(id);
+        request.setAttribute("student", student);
+        getServletContext().getRequestDispatcher("/student.jsp").forward(request, response);
     }
     
 }

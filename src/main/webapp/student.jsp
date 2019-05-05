@@ -18,11 +18,10 @@
 	<br>
 	<p>Birth day: ${student.birthDay}</p>
 
-	<form action="./student">
+	<form action='<c:url value="/student" />' method="post">
 		<fieldset>
 			<legend>Update student ${student.firstName}
-				${student.lastName}</legend>
-			<input name="crud_type" value="update" hidden /> 
+				${student.lastName}</legend> 
 			<input name="id"value="${student.id}" hidden /> 
 			<input type="text" size="12"name="first_name" required /><small>New first name</small><br>
 			<input type="text" size="12" name="last_name" required /><small>New last name</small><br>
@@ -36,14 +35,13 @@
 		</fieldset>
 	</form>
 
-	<form action="./students">
+	<form action='<c:url value="/student/delete"/>' method="post">
 		<fieldset>
 			<legend>Delete student ${student.firstName}${student.lastName}</legend>
-			<input name="crud_type" value="delete" hidden /> 
 			<input name="id"value="${student.id}" hidden />
 			<input type="submit" value="Delete" />
 		</fieldset>
 	</form>
-	<h2><a href="./students">All students</a></h2>
+	<h2><a href='<c:url value="/students"/>'>All students</a></h2>
 </body>
 </html>

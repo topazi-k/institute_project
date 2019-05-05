@@ -121,7 +121,7 @@ public class StudentDaoJdbc implements StudentDao {
             
             while (resultSet.next()) {
                 student = getStudentFromResultSet(resultSet);
-                log.trace("Setting student with id: " + student.getId() + "to List students");
+                log.trace("Setting student: " + student + "to List students");
                 students.add(student);
             }
             
@@ -136,7 +136,6 @@ public class StudentDaoJdbc implements StudentDao {
     @Override
     public List<Student> findStudentsWithoutGroup() {
         log.debug("Finding students without group");
-        Student student = null;
         List<Student> students = new ArrayList<>();
         String sql = "SELECT * FROM student where (\"group\" is null)";
         
@@ -148,8 +147,8 @@ public class StudentDaoJdbc implements StudentDao {
             ResultSet resultSet = statement.executeQuery();
             
             while (resultSet.next()) {
-                student = getStudentFromResultSet(resultSet);
-                log.trace("Setting student with id: " + student.getId() + "to List students");
+                Student student = getStudentFromResultSet(resultSet);
+                log.trace("Setting student: " + student + "to List students");
                 students.add(student);
             }
             

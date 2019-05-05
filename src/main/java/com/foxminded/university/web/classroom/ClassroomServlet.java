@@ -1,4 +1,4 @@
-package com.foxminded.university.web;
+package com.foxminded.university.web.classroom;
 
 import java.io.IOException;
 

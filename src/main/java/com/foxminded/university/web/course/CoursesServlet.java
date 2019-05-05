@@ -1,6 +1,7 @@
-package com.foxminded.university.web;
+package com.foxminded.university.web.course;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,14 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.foxminded.university.domain.Course;
 import com.foxminded.university.service.CourseService;
 
-@WebServlet("/course")
-public class CourseServlet extends HttpServlet {
+@WebServlet("/courses")
+public class CoursesServlet extends HttpServlet {
     
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int courseId = Integer.parseInt(request.getParameter("id"));
-        Course course = new CourseService().findById(courseId);
-        request.setAttribute("course", course);
-        getServletContext().getRequestDispatcher("/course.jsp").forward(request, response);
+        List<Course> courses = new CourseService().findAll();
+        request.setAttribute("courses", courses);
+        getServletContext().getRequestDispatcher("/courses.jsp").forward(request, response);
     }
 }
