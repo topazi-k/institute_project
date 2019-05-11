@@ -2,6 +2,7 @@ package com.foxminded.university.web.teacher;
 
 import java.io.IOException;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,10 +15,18 @@ import com.foxminded.university.service.TeacherService;
 @WebServlet("/teacher")
 public class TeacherServlet extends HttpServlet {
     
+    TeacherService teacherService;
+    
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        teacherService = new TeacherService();
+    }
+    
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int teacherId = Integer.parseInt(request.getParameter("id"));
-        Teacher teacher = new TeacherService().findById(teacherId);
+        Teacher teacher = teacherService.findById(teacherId);
         request.setAttribute("teacher", teacher);
         getServletContext().getRequestDispatcher("/teacher.jsp").forward(request, response);
     }

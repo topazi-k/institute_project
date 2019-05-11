@@ -3,6 +3,7 @@ package com.foxminded.university.web.student;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +16,13 @@ import com.foxminded.university.service.StudentService;
 @WebServlet("/student")
 public class StudentServlet extends HttpServlet {
     
-    private StudentService studentService = new StudentService();
+    private StudentService studentService;
+    
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        studentService = new StudentService();
+    }
     
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,9 +55,7 @@ public class StudentServlet extends HttpServlet {
         int year = Integer.parseInt(request.getParameter("year"));
         student.setBirthDay(LocalDate.of(year, month, dayOfMonth));
         studentService.update(student);
-        student = studentService.findById(id);
-        request.setAttribute("student", student);
-        getServletContext().getRequestDispatcher("/student.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/student?id=" + id);
     }
     
 }

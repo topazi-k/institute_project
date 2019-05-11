@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +19,16 @@ import com.foxminded.university.service.UniversityService;
 @WebServlet("/teacher_schedule")
 public class TeacherScheduleServlet extends HttpServlet {
     
+    UniversityService universityService;
+    
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        universityService = new UniversityService();
+    }
+    
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int teacherId = Integer.parseInt(request.getParameter("id"));
         List<Lecture> schedule = new ArrayList<>();
         TimePeriodService timePeriod;
@@ -42,7 +51,7 @@ public class TeacherScheduleServlet extends HttpServlet {
             timePeriod = new TimePeriodService(dateStart, dateEnd);
         }
         try {
-            schedule = new UniversityService().getTeacherSchedule(teacherId, timePeriod);
+            schedule = universityService.getTeacherSchedule(teacherId, timePeriod);
         } catch (com.foxminded.university.service.DataNotFoundException e) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;

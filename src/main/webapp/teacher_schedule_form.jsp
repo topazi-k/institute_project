@@ -15,7 +15,7 @@
 	
 	<h2>For teacher:</h2>
 
-	<form action="./teacher_schedule" >
+	<form action="./teacher_schedule" method="post">
 		<fieldset>
 			<legend> One day </legend>
 			<input name="period" value="day"  hidden/>
@@ -39,7 +39,7 @@
 		</fieldset>
 	</form>
 
-	<form action="./teacher_schedule" >
+	<form action="./teacher_schedule" method="post">
 		<fieldset>
 			<legend> Time period </legend>
 			<input name="period" value="period"  hidden/>

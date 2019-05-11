@@ -3,6 +3,7 @@ package com.foxminded.university.web.group;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,20 +18,25 @@ import com.foxminded.university.service.StudentService;
 @WebServlet("/group/remove_student")
 public class RemoveStudentServlet extends HttpServlet {
     
+    GroupService groupService = new GroupService();
+    StudentService studentService = new StudentService();
+    
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        groupService = new GroupService();
+        studentService = new StudentService();
+    }
+    
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        GroupService groupService = new GroupService();
-        StudentService studentService = new StudentService();
-        int groupId=Integer.parseInt(request.getParameter("id"));
+        
+        int groupId = Integer.parseInt(request.getParameter("id"));
         int studentId = Integer.parseInt(request.getParameter("student_id"));
         Student student = studentService.findById(studentId);
         groupService.removeStudent(student);
+        response.sendRedirect(request.getContextPath() + "/group?id=" + groupId);
         
-        Group group = groupService.findById(groupId);
-        List<Student> freeStudents = studentService.findStudentsWithoutGroup();
-        request.setAttribute("free_students", freeStudents);
-        request.setAttribute("group", group);
-        getServletContext().getRequestDispatcher("/group.jsp").forward(request, response);
     }
     
 }

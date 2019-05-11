@@ -1,11 +1,11 @@
 package com.foxminded.university.web;
 
 import java.io.IOException;
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +19,16 @@ import com.foxminded.university.service.UniversityService;
 @WebServlet("/student_schedule")
 public class StudentScheduleServlet extends HttpServlet {
     
+    UniversityService universityService;
+    
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        universityService = new UniversityService();
+    }
+    
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int studentId = Integer.parseInt(request.getParameter("id"));
         List<Lecture> schedule = new ArrayList<>();
         TimePeriodService timePeriod = null;
@@ -44,10 +52,9 @@ public class StudentScheduleServlet extends HttpServlet {
             timePeriod = new TimePeriodService(dateStart, dateEnd);
         }
         try {
-            schedule = new UniversityService().getStudentSchedule(studentId, timePeriod);
+            schedule = universityService.getStudentSchedule(studentId, timePeriod);
         } catch (com.foxminded.university.service.DataNotFoundException e) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return;
         }
         request.setAttribute("schedule", schedule);
         getServletContext().getRequestDispatcher("/student_schedule.jsp").forward(request, response);

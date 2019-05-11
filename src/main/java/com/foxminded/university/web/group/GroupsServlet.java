@@ -1,8 +1,8 @@
 package com.foxminded.university.web.group;
 
 import java.io.IOException;
-import java.util.List;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +16,12 @@ import com.foxminded.university.service.GroupService;
 public class GroupsServlet extends HttpServlet {
     
     private GroupService groupService = new GroupService();
+    
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        groupService = new GroupService();
+    }
     
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,8 +38,7 @@ public class GroupsServlet extends HttpServlet {
         group.setGroupName(groupName);
         group.setGroupNumber(groupNumber);
         groupService.create(group);
-        request.setAttribute("groups", groupService.findAll());
-        getServletContext().getRequestDispatcher("/groups.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/groups");
     }
     
 }

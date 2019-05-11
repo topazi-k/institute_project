@@ -3,6 +3,7 @@ package com.foxminded.university.web.group;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +18,15 @@ import com.foxminded.university.service.StudentService;
 @WebServlet("/group")
 public class GroupServlet extends HttpServlet {
     
-    private GroupService groupService = new GroupService();
-    private StudentService studentService = new StudentService();
+    private GroupService groupService;
+    private StudentService studentService;
+    
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        groupService = new GroupService();
+        studentService = new StudentService();
+    }
     
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,16 +56,7 @@ public class GroupServlet extends HttpServlet {
         group.setGroupName(groupName);
         groupService.update(group);
         
-        try {
-            group = groupService.findById(groupId);
-        } catch (com.foxminded.university.service.DataNotFoundException e) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return;
-        }
-        List<Student> freeStudents = studentService.findStudentsWithoutGroup();
-        request.setAttribute("free_students", freeStudents);
-        request.setAttribute("group", group);
-        getServletContext().getRequestDispatcher("/group.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/group?id=" + groupId);
     }
     
 }
