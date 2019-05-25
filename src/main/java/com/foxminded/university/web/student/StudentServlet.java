@@ -2,8 +2,9 @@ package com.foxminded.university.web.student;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,26 +18,28 @@ import com.foxminded.university.service.StudentService;
 public class StudentServlet extends HttpServlet {
     
     private StudentService studentService;
+    private DateTimeFormatter formatter;
     
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+    public void init() throws ServletException {
         studentService = new StudentService();
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     }
     
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        int studentId = Integer.parseInt(request.getParameter("id"));
         Student student;
-        
         try {
+            int studentId = Integer.parseInt(request.getParameter("id"));
             student = studentService.findById(studentId);
         } catch (com.foxminded.university.service.DataNotFoundException e) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            response.sendError(404);
+            return;
+        } catch (NumberFormatException e) {
+            response.sendError(400);
             return;
         }
-        
         request.setAttribute("student", student);
         getServletContext().getRequestDispatcher("/student.jsp").forward(request, response);
     }
@@ -45,15 +48,18 @@ public class StudentServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         Student student = new Student();
-        int id = (Integer.parseInt(request.getParameter("id")));
-        student.setId(id);
-        student.setFirstName(request.getParameter("first_name"));
-        student.setLastName(request.getParameter("last_name"));
+        int id = 0;
         
-        int dayOfMonth = Integer.parseInt(request.getParameter("day"));
-        int month = Integer.parseInt(request.getParameter("month"));
-        int year = Integer.parseInt(request.getParameter("year"));
-        student.setBirthDay(LocalDate.of(year, month, dayOfMonth));
+        try {
+            id = (Integer.parseInt(request.getParameter("id")));
+            student.setId(id);
+            student.setFirstName(request.getParameter("first_name"));
+            student.setLastName(request.getParameter("last_name"));
+            LocalDate birthDay = LocalDate.parse(request.getParameter("birthday"), formatter);
+            student.setBirthDay(birthDay);
+        } catch (NumberFormatException | DateTimeParseException e) {
+            response.sendError(400);
+        }
         studentService.update(student);
         response.sendRedirect(request.getContextPath() + "/student?id=" + id);
     }

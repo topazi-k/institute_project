@@ -18,18 +18,24 @@ public class DeleteStudentServlet extends HttpServlet {
     private StudentService studentService;
     
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+    public void init() throws ServletException {
         studentService = new StudentService();
     }
     
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = (Integer.parseInt(request.getParameter("id")));
-        Student student = studentService.findById(id);
-        studentService.delete(student);
+        try {
+            int id = (Integer.parseInt(request.getParameter("id")));
+            Student student = studentService.findById(id);
+            studentService.delete(student);
+        } catch (com.foxminded.university.service.DataNotFoundException e) {
+            response.sendError(404);
+            return;
+        } catch (NumberFormatException e) {
+            response.sendError(400);
+            return;
+        }
         response.sendRedirect(request.getContextPath() + "/students");
-        
     }
     
 }

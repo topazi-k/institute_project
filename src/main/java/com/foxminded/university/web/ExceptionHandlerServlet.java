@@ -20,7 +20,7 @@ public class ExceptionHandlerServlet extends HttpServlet {
         
         if (throwable.getClass() == java.lang.NumberFormatException.class
                 | throwable.getClass() == java.time.DateTimeException.class) {
-            StringBuilder message = new StringBuilder("incorrect input" + throwable.getMessage());
+            String message =("incorrect input " + throwable.getMessage());
             request.setAttribute("message", message.toString());
             getServletContext().getRequestDispatcher("/input_exception.jsp").forward(request, response);
         } else {

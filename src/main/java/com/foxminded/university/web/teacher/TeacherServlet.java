@@ -15,11 +15,10 @@ import com.foxminded.university.service.TeacherService;
 @WebServlet("/teacher")
 public class TeacherServlet extends HttpServlet {
     
-    TeacherService teacherService;
+    private TeacherService teacherService;
     
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+    public void init() throws ServletException {
         teacherService = new TeacherService();
     }
     

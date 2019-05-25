@@ -15,19 +15,26 @@ import com.foxminded.university.service.GroupService;
 @WebServlet("/group/delete")
 public class DeleteGroupServlet extends HttpServlet {
     
-    GroupService groupService;
+    private GroupService groupService;
     
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+    public void init() throws ServletException {
         groupService = new GroupService();
     }
     
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        int groupId = Integer.parseInt(request.getParameter("id"));
-        Group group = groupService.findById(groupId);
+        Group group = null;
+        try {
+            int groupId = Integer.parseInt(request.getParameter("id"));
+            group = groupService.findById(groupId);
+        } catch (com.foxminded.university.service.DataNotFoundException e) {
+            response.sendError(404);
+            return;
+        } catch (NumberFormatException e) {
+            response.sendError(400);
+            return;
+        }
         groupService.removeAllStudents(group);
         groupService.delete(group);
         response.sendRedirect(request.getContextPath() + "/groups");

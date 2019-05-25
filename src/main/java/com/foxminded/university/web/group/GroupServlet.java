@@ -22,8 +22,7 @@ public class GroupServlet extends HttpServlet {
     private StudentService studentService;
     
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+    public void init() throws ServletException {
         groupService = new GroupService();
         studentService = new StudentService();
     }
@@ -31,12 +30,15 @@ public class GroupServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        int groupId = Integer.parseInt(request.getParameter("id"));
         Group group;
         try {
+            int groupId = Integer.parseInt(request.getParameter("id"));
             group = groupService.findById(groupId);
         } catch (com.foxminded.university.service.DataNotFoundException e) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            response.sendError(404);
+            return;
+        } catch (NumberFormatException e) {
+            response.sendError(400);
             return;
         }
         List<Student> freeStudents = studentService.findStudentsWithoutGroup();
@@ -47,15 +49,23 @@ public class GroupServlet extends HttpServlet {
     
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int groupId = Integer.parseInt(request.getParameter("id"));
-        int groupNumber = Integer.parseInt(request.getParameter("number"));
-        String groupName = request.getParameter("name");
-        Group group = new Group();
-        group.setId(groupId);
-        group.setGroupNumber(groupNumber);
-        group.setGroupName(groupName);
-        groupService.update(group);
         
+        Group group = new Group();
+        int groupId = 0;
+        
+        try {
+            groupId = Integer.parseInt(request.getParameter("id"));
+            int groupNumber = Integer.parseInt(request.getParameter("number"));
+            String groupName = request.getParameter("name");
+            
+            group.setId(groupId);
+            group.setGroupNumber(groupNumber);
+            group.setGroupName(groupName);
+        } catch (NumberFormatException e) {
+            response.sendError(400);
+            return;
+        }
+        groupService.update(group);
         response.sendRedirect(request.getContextPath() + "/group?id=" + groupId);
     }
     

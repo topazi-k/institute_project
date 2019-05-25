@@ -15,7 +15,7 @@
 	
 	<h2>For student:</h2>
 
-	<form action="./student_schedule" method="post">
+	<form action='<c:url value="/student_schedule" />' method="post">
 		<fieldset>
 			<legend> One day </legend>
 			<input name="period" value="day"  hidden/>
@@ -27,19 +27,12 @@
 				</c:forEach>
 			</select> <br>
 			</p>
-			
-			<p>
-				Date: <br> 
-				<input type="text" size="2" name="day" /> <small>Day</small>
-				<input type="text" size="2" name="month" /> <small>Month</small> 
-				<input type="text" size="4" name="year" /> <small>Year</small>
-			</p>
-			
+			<input type="date" size="10" name="date"required /> <small>Date</small> 
 			</br> <input type="submit" value="Send" />
 		</fieldset>
 	</form>
 
-	<form action="./student_schedule" method="post">
+	<form action='<c:url value="/student_schedule" />' method="post">
 		<fieldset>
 			<legend> Time period </legend>
 			<input name="period" value="period"  hidden/>
@@ -51,19 +44,9 @@
 					</c:forEach>
 				</select>
 			</p>
-			<p>
-				Start of period: <br> 
-				<input type="text" size="2" name="day" /><small>Day</small>
-				<input type="text" size="2" name="month" /> <small>Month</small>
-				<input type="text" size="4" name="year" /> <small>Year</small>
-			</p>
+			<input type="date" size="10" name="date_start"required /> <small>Start of period</small> 
 			</br>
-			<p>
-				End of period: <br> 
-				<input type="text" size="2" name="last_day" /><small>Day</small> 
-				<input type="text" size="2" name="last_month" /> <small>Month</small>
-				<input type="text" size="4" name="last_year" /> <small>Year</small>
-			</p>
+			<input type="date" size="10" name="date_end"required /> <small>End of period</small> 
 			<input type="submit" value="Send" />
 		</fieldset>
 	</form>

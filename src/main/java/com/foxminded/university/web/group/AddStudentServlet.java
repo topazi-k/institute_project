@@ -18,23 +18,31 @@ import com.foxminded.university.service.StudentService;
 @WebServlet("/group/add_student")
 public class AddStudentServlet extends HttpServlet {
     
-    GroupService groupService;
-    StudentService studentService;
+    private GroupService groupService;
+    private StudentService studentService;
     
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+    public void init() throws ServletException {
         groupService = new GroupService();
         studentService = new StudentService();
     }
     
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        int groupId = Integer.parseInt(request.getParameter("id"));
-        int studentId = Integer.parseInt(request.getParameter("student_id"));
-        Group group = groupService.findById(groupId);
-        Student student = studentService.findById(studentId);
+        Group group = null;
+        Student student = null;
+        try {
+            int groupId = Integer.parseInt(request.getParameter("id"));
+            int studentId = Integer.parseInt(request.getParameter("student_id"));
+            group = groupService.findById(groupId);
+            student = studentService.findById(studentId);
+        } catch (com.foxminded.university.service.DataNotFoundException e) {
+            response.sendError(404);
+            return;
+        } catch (NumberFormatException e) {
+            response.sendError(400);
+            return;
+        }
         groupService.addStudent(group, student);
         response.sendRedirect(request.getContextPath() + "/group?id=" + groupId);
     }

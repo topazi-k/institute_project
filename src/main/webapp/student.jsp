@@ -25,12 +25,7 @@
 			<input name="id"value="${student.id}" hidden /> 
 			<input type="text" size="12"name="first_name" required /><small>New first name</small><br>
 			<input type="text" size="12" name="last_name" required /><small>New last name</small><br>
-			<p>
-				New birth day: <br> 
-				<input type="text" size="2" name="day"required /> <small>Day</small> 
-				<input type="text" size="2"name="month" required /> <small>Month</small> 
-				<input type="text" size="4" name="year" required /> <small>Year</small>
-			</p>
+			<input type="date" size="10" name="birthday"required /> <small>Birthday</small> 
 			<input type="submit" value="Update" />
 		</fieldset>
 	</form>

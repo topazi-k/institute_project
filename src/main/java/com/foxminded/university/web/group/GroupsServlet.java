@@ -18,8 +18,7 @@ public class GroupsServlet extends HttpServlet {
     private GroupService groupService = new GroupService();
     
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+    public void init() throws ServletException {
         groupService = new GroupService();
     }
     
@@ -31,12 +30,17 @@ public class GroupsServlet extends HttpServlet {
     }
     
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        String groupName = request.getParameter("name");
-        int groupNumber = Integer.parseInt(request.getParameter("number"));
         Group group = new Group();
-        group.setGroupName(groupName);
-        group.setGroupNumber(groupNumber);
+        try {
+            String groupName = request.getParameter("name");
+            int groupNumber = Integer.parseInt(request.getParameter("number"));
+            group.setGroupName(groupName);
+            group.setGroupNumber(groupNumber);
+            
+        } catch (NumberFormatException e) {
+            response.sendError(400);
+            return;
+        }
         groupService.create(group);
         response.sendRedirect(request.getContextPath() + "/groups");
     }

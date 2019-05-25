@@ -2,8 +2,9 @@ package com.foxminded.university.web.student;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,11 +18,12 @@ import com.foxminded.university.service.StudentService;
 public class StudentsServlet extends HttpServlet {
     
     private StudentService studentService;
+    private DateTimeFormatter formatter;
     
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+    public void init() throws ServletException {
         studentService = new StudentService();
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     }
     
     @Override
@@ -32,13 +34,15 @@ public class StudentsServlet extends HttpServlet {
     
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Student student = new Student();
-        student.setFirstName(request.getParameter("first_name"));
-        student.setLastName(request.getParameter("last_name"));
-        
-        int dayOfMonth = Integer.parseInt(request.getParameter("day"));
-        int month = Integer.parseInt(request.getParameter("month"));
-        int year = Integer.parseInt(request.getParameter("year"));
-        student.setBirthDay(LocalDate.of(year, month, dayOfMonth));
+        try {
+            student.setFirstName(request.getParameter("first_name"));
+            student.setLastName(request.getParameter("last_name"));
+            LocalDate birthDay = LocalDate.parse(request.getParameter("birthday"), formatter);
+            student.setBirthDay(birthDay);
+        } catch (DateTimeParseException e) {
+            response.sendError(400);
+            return;
+        }
         studentService.create(student);
         response.sendRedirect(request.getContextPath() + "/students");
     }

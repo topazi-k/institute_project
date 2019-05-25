@@ -18,22 +18,30 @@ import com.foxminded.university.service.StudentService;
 @WebServlet("/group/remove_student")
 public class RemoveStudentServlet extends HttpServlet {
     
-    GroupService groupService = new GroupService();
-    StudentService studentService = new StudentService();
+    private GroupService groupService = new GroupService();
+    private StudentService studentService = new StudentService();
     
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+    public void init() throws ServletException {
         groupService = new GroupService();
         studentService = new StudentService();
     }
     
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        int groupId = Integer.parseInt(request.getParameter("id"));
-        int studentId = Integer.parseInt(request.getParameter("student_id"));
-        Student student = studentService.findById(studentId);
+        Student student = null;
+        int groupId = 0;
+        try {
+            groupId = Integer.parseInt(request.getParameter("id"));
+            int studentId = Integer.parseInt(request.getParameter("student_id"));
+            student = studentService.findById(studentId);
+        } catch (com.foxminded.university.service.DataNotFoundException e) {
+            response.sendError(404);
+            return;
+        } catch (NumberFormatException e) {
+            response.sendError(400);
+            return;
+        }
         groupService.removeStudent(student);
         response.sendRedirect(request.getContextPath() + "/group?id=" + groupId);
         

@@ -16,18 +16,17 @@ import com.foxminded.university.service.ClassroomService;
 @WebServlet("/classrooms")
 public class ClassroomsServlet extends HttpServlet {
     
-    ClassroomService classroomService;
+    private ClassroomService classroomService;
     
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+    public void init() throws ServletException {
         classroomService = new ClassroomService();
     }
     
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Classroom> classroomms = classroomService.findAll();
-        request.setAttribute("classrooms", classroomms);
+        List<Classroom> classrooms = classroomService.findAll();
+        request.setAttribute("classrooms", classrooms);
         getServletContext().getRequestDispatcher("/classrooms.jsp").forward(request, response);
     }
 }
