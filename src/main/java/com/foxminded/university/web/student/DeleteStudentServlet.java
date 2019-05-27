@@ -2,7 +2,6 @@ package com.foxminded.university.web.student;
 
 import java.io.IOException;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,11 +22,11 @@ public class DeleteStudentServlet extends HttpServlet {
     }
     
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Student student;
         try {
             int id = (Integer.parseInt(request.getParameter("id")));
-            Student student = studentService.findById(id);
-            studentService.delete(student);
+            student = studentService.findById(id);
         } catch (com.foxminded.university.service.DataNotFoundException e) {
             response.sendError(404);
             return;
@@ -35,7 +34,7 @@ public class DeleteStudentServlet extends HttpServlet {
             response.sendError(400);
             return;
         }
+        studentService.delete(student);
         response.sendRedirect(request.getContextPath() + "/students");
     }
-    
 }

@@ -45,21 +45,22 @@ public class StudentServlet extends HttpServlet {
     }
     
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         
         Student student = new Student();
-        int id = 0;
-        
+        int id;
+        LocalDate birthDay;
         try {
-            id = (Integer.parseInt(request.getParameter("id")));
-            student.setId(id);
+            id = Integer.parseInt(request.getParameter("id"));
             student.setFirstName(request.getParameter("first_name"));
             student.setLastName(request.getParameter("last_name"));
-            LocalDate birthDay = LocalDate.parse(request.getParameter("birthday"), formatter);
-            student.setBirthDay(birthDay);
+            birthDay = LocalDate.parse(request.getParameter("birthday"), formatter);
         } catch (NumberFormatException | DateTimeParseException e) {
             response.sendError(400);
+            return;
         }
+        student.setId(id);
+        student.setBirthDay(birthDay);
         studentService.update(student);
         response.sendRedirect(request.getContextPath() + "/student?id=" + id);
     }

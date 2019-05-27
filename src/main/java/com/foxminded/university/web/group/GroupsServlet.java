@@ -2,7 +2,6 @@ package com.foxminded.university.web.group;
 
 import java.io.IOException;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,18 +28,19 @@ public class GroupsServlet extends HttpServlet {
         getServletContext().getRequestDispatcher("/groups.jsp").forward(request, response);
     }
     
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Group group = new Group();
+        int groupNumber;
+        String groupName;
         try {
-            String groupName = request.getParameter("name");
-            int groupNumber = Integer.parseInt(request.getParameter("number"));
-            group.setGroupName(groupName);
-            group.setGroupNumber(groupNumber);
-            
+            groupName = request.getParameter("name");
+            groupNumber = Integer.parseInt(request.getParameter("number"));
         } catch (NumberFormatException e) {
             response.sendError(400);
             return;
         }
+        group.setGroupName(groupName);
+        group.setGroupNumber(groupNumber);
         groupService.create(group);
         response.sendRedirect(request.getContextPath() + "/groups");
     }

@@ -29,7 +29,7 @@
 			<input name="id" value="${group.id }" hidden/>
 			<p>Name:
 			<select name="student_id">
-				<c:forEach items="${free_students}" var="student">
+				<c:forEach items="${students_without_group}" var="student">
 					<option value="${student.id}">${student.firstName}
 						${student.lastName} ${student.birthDay}</option>
 				</c:forEach>

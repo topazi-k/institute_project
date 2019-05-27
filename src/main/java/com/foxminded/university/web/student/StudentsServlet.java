@@ -32,7 +32,7 @@ public class StudentsServlet extends HttpServlet {
         getServletContext().getRequestDispatcher("/students.jsp").forward(request, response);
     }
     
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Student student = new Student();
         try {
             student.setFirstName(request.getParameter("first_name"));
