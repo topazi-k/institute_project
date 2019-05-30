@@ -9,4 +9,6 @@ public interface StudentDao extends CrudDao<Student> {
     
     List<Student> findByGroup(Group group);
     
+    List<Student> findStudentsWithoutGroup();
+    
 }

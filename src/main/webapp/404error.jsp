@@ -17,7 +17,7 @@
 	<h1>Page not found!!!</h1>
 	
 	<h2>
-		<a href="./">Home</a>
+		<a href="../university">Home</a>
 	</h2>
 	
 </body>
