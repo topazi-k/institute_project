@@ -2,7 +2,6 @@ package com.foxminded.university.web.student;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import javax.servlet.ServletException;
@@ -11,19 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.foxminded.university.constants.Constants;
 import com.foxminded.university.domain.Student;
+import com.foxminded.university.service.DataNotFoundException;
 import com.foxminded.university.service.StudentService;
 
 @WebServlet("/student")
 public class StudentServlet extends HttpServlet {
     
     private StudentService studentService;
-    private DateTimeFormatter formatter;
     
     @Override
     public void init() throws ServletException {
         studentService = new StudentService();
-        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     }
     
     @Override
@@ -33,11 +32,11 @@ public class StudentServlet extends HttpServlet {
         try {
             int studentId = Integer.parseInt(request.getParameter("id"));
             student = studentService.findById(studentId);
-        } catch (com.foxminded.university.service.DataNotFoundException e) {
-            response.sendError(404);
+        } catch (DataNotFoundException e) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         } catch (NumberFormatException e) {
-            response.sendError(400);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
         request.setAttribute("student", student);
@@ -54,9 +53,9 @@ public class StudentServlet extends HttpServlet {
             id = Integer.parseInt(request.getParameter("id"));
             student.setFirstName(request.getParameter("first_name"));
             student.setLastName(request.getParameter("last_name"));
-            birthDay = LocalDate.parse(request.getParameter("birthday"), formatter);
+            birthDay = LocalDate.parse(request.getParameter("birthday"), Constants.DATE_FORMATTER);
         } catch (NumberFormatException | DateTimeParseException e) {
-            response.sendError(400);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
         student.setId(id);

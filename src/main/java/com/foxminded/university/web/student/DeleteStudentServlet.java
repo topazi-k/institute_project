@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.foxminded.university.domain.Student;
+import com.foxminded.university.service.DataNotFoundException;
 import com.foxminded.university.service.StudentService;
 
 @WebServlet("/student/delete")
@@ -27,11 +28,11 @@ public class DeleteStudentServlet extends HttpServlet {
         try {
             int id = (Integer.parseInt(request.getParameter("id")));
             student = studentService.findById(id);
-        } catch (com.foxminded.university.service.DataNotFoundException e) {
-            response.sendError(404);
+        } catch (DataNotFoundException e) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         } catch (NumberFormatException e) {
-            response.sendError(400);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
         studentService.delete(student);

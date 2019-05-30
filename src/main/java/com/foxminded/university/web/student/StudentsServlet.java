@@ -2,7 +2,6 @@ package com.foxminded.university.web.student;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import javax.servlet.ServletException;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.foxminded.university.constants.Constants;
 import com.foxminded.university.domain.Student;
 import com.foxminded.university.service.StudentService;
 
@@ -18,12 +18,10 @@ import com.foxminded.university.service.StudentService;
 public class StudentsServlet extends HttpServlet {
     
     private StudentService studentService;
-    private DateTimeFormatter formatter;
     
     @Override
     public void init() throws ServletException {
         studentService = new StudentService();
-        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     }
     
     @Override
@@ -34,15 +32,16 @@ public class StudentsServlet extends HttpServlet {
     
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Student student = new Student();
+        LocalDate birthDay;
         try {
             student.setFirstName(request.getParameter("first_name"));
             student.setLastName(request.getParameter("last_name"));
-            LocalDate birthDay = LocalDate.parse(request.getParameter("birthday"), formatter);
-            student.setBirthDay(birthDay);
+            birthDay = LocalDate.parse(request.getParameter("birthday"), Constants.DATE_FORMATTER);
         } catch (DateTimeParseException e) {
-            response.sendError(400);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
+        student.setBirthDay(birthDay);
         studentService.create(student);
         response.sendRedirect(request.getContextPath() + "/students");
     }

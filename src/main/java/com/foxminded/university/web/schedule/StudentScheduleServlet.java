@@ -2,19 +2,19 @@ package com.foxminded.university.web.schedule;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.foxminded.university.constants.Constants;
 import com.foxminded.university.domain.Lecture;
+import com.foxminded.university.service.DataNotFoundException;
 import com.foxminded.university.service.TimePeriodService;
 import com.foxminded.university.service.UniversityService;
 
@@ -22,12 +22,10 @@ import com.foxminded.university.service.UniversityService;
 public class StudentScheduleServlet extends HttpServlet {
     
     private UniversityService universityService;
-    private DateTimeFormatter formatter;
     
     @Override
     public void init() throws ServletException {
         universityService = new UniversityService();
-        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     }
     
     @Override
@@ -39,21 +37,21 @@ public class StudentScheduleServlet extends HttpServlet {
         try {
             
             if (request.getParameter("period").equals("day")) {
-                LocalDate date = LocalDate.parse(request.getParameter("date"), formatter);
+                LocalDate date = LocalDate.parse(request.getParameter("date"), Constants.DATE_FORMATTER);
                 timePeriod = new TimePeriodService(date);
                 
             } else {
-                LocalDate dateStart = LocalDate.parse(request.getParameter("date_start"), formatter);
-                LocalDate dateEnd = LocalDate.parse(request.getParameter("date_end"), formatter);
+                LocalDate dateStart = LocalDate.parse(request.getParameter("date_start"), Constants.DATE_FORMATTER);
+                LocalDate dateEnd = LocalDate.parse(request.getParameter("date_end"), Constants.DATE_FORMATTER);
                 timePeriod = new TimePeriodService(dateStart, dateEnd);
             }
             int studentId = Integer.parseInt(request.getParameter("id"));
             schedule = universityService.getStudentSchedule(studentId, timePeriod);
-        } catch (com.foxminded.university.service.DataNotFoundException e) {
-            response.sendError(404);
+        } catch (DataNotFoundException e) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         } catch (DateTimeParseException | NumberFormatException e) {
-            response.sendError(400);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
         request.setAttribute("schedule", schedule);

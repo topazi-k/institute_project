@@ -36,7 +36,7 @@ public class GroupsServlet extends HttpServlet {
             groupName = request.getParameter("name");
             groupNumber = Integer.parseInt(request.getParameter("number"));
         } catch (NumberFormatException e) {
-            response.sendError(400);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
         group.setGroupName(groupName);

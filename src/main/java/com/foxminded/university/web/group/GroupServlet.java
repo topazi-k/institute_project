@@ -34,10 +34,10 @@ public class GroupServlet extends HttpServlet {
             int groupId = Integer.parseInt(request.getParameter("id"));
             group = groupService.findById(groupId);
         } catch (DataNotFoundException e) {
-            response.sendError(404);
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         } catch (NumberFormatException e) {
-            response.sendError(400);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
         List<Student> studentsWithoutGroup = studentService.findStudentsWithoutGroup();
@@ -58,7 +58,7 @@ public class GroupServlet extends HttpServlet {
             groupName = request.getParameter("name");
             
         } catch (NumberFormatException e) {
-            response.sendError(400);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
         
