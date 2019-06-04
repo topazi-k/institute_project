@@ -13,8 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 public class ConnectionFactory {
     
-    private static Logger log = LogManager.getLogger(ConnectionFactory.class);
-    private static Context context;
+    private static Logger log = LogManager.getLogger(ConnectionFactory.class);    
     private static DataSource dataSource;
     
     public Connection getConnection() {
@@ -24,7 +23,7 @@ public class ConnectionFactory {
         try {
             log.trace("Checking DataSource on null");
             if (dataSource == null) {
-                context = new InitialContext();
+                Context context = new InitialContext();
                 log.debug("Getting DataSource from InitialContext");
                 dataSource = (DataSource) context.lookup("java:/comp/env/jdbc/UniversityDB");
             }
