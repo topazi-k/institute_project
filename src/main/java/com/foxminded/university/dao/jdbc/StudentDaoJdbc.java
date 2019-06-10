@@ -1,5 +1,6 @@
 package com.foxminded.university.dao.jdbc;
 
+import com.foxminded.university.constants.Constants;
 import com.foxminded.university.dao.ConnectionFactory;
 import com.foxminded.university.dao.DaoException;
 import com.foxminded.university.dao.StudentDao;
@@ -20,7 +21,7 @@ import java.sql.PreparedStatement;
 
 public class StudentDaoJdbc implements StudentDao {
     
-    private ConnectionFactory connFactory = new ConnectionFactory();
+    private ConnectionFactory connFactory = (ConnectionFactory) Constants.CONTEXT_SPRING.getBean("connectionFactory",ConnectionFactory.class);
     private static Logger log = LogManager.getLogger(StudentDaoJdbc.class);
     
     @Override

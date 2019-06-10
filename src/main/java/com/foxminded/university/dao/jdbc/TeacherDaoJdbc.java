@@ -5,10 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import com.foxminded.university.constants.Constants;
 import com.foxminded.university.dao.ConnectionFactory;
 import com.foxminded.university.dao.DaoException;
 import com.foxminded.university.dao.TeacherDao;
@@ -17,7 +17,7 @@ import com.foxminded.university.domain.Faculty;
 import com.foxminded.university.domain.Teacher;
 
 public class TeacherDaoJdbc implements TeacherDao {
-    private ConnectionFactory connFactory = new ConnectionFactory();
+    private ConnectionFactory connFactory = (ConnectionFactory) Constants.CONTEXT_SPRING.getBean("connectionFactory",ConnectionFactory.class);
     private CourseDaoJdbc courseDao = new CourseDaoJdbc();
     
     @Override

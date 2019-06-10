@@ -37,6 +37,7 @@
 			<input type="submit" value="Delete" />
 		</fieldset>
 	</form>
+
 	<h2><a href='<c:url value="/students"/>'>All students</a></h2>
 </body>
 </html>

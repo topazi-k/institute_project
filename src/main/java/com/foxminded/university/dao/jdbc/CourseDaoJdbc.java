@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.foxminded.university.constants.Constants;
 import com.foxminded.university.dao.ConnectionFactory;
 import com.foxminded.university.dao.CourseDao;
 import com.foxminded.university.dao.DaoException;
@@ -15,7 +16,7 @@ import com.foxminded.university.domain.Course;
 import com.foxminded.university.domain.Faculty;
 
 public class CourseDaoJdbc implements CourseDao {
-    private ConnectionFactory connFactory = new ConnectionFactory();
+    private ConnectionFactory connFactory = (ConnectionFactory) Constants.CONTEXT_SPRING.getBean("connectionFactory",ConnectionFactory.class);
     
     @Override
     public Course create(Course course) {

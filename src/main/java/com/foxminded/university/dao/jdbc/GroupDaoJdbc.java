@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
 
+import com.foxminded.university.constants.Constants;
 import com.foxminded.university.dao.ConnectionFactory;
 import com.foxminded.university.dao.DaoException;
 import com.foxminded.university.dao.GroupDao;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 
 public class GroupDaoJdbc implements GroupDao {
     
-    private ConnectionFactory connFactory = new ConnectionFactory();
+    private ConnectionFactory connFactory = (ConnectionFactory) Constants.CONTEXT_SPRING.getBean("connectionFactory",ConnectionFactory.class);
     private StudentDaoJdbc studentDao = new StudentDaoJdbc();
     
     @Override
