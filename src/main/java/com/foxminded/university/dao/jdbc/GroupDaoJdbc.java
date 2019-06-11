@@ -1,10 +1,12 @@
 package com.foxminded.university.dao.jdbc;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.foxminded.university.dao.ConnectionFactory;
 import com.foxminded.university.dao.DaoException;
@@ -12,9 +14,6 @@ import com.foxminded.university.dao.GroupDao;
 import com.foxminded.university.domain.Faculty;
 import com.foxminded.university.domain.Group;
 import com.foxminded.university.domain.Student;
-
-import java.util.List;
-import java.util.ArrayList;
 
 public class GroupDaoJdbc implements GroupDao {
     

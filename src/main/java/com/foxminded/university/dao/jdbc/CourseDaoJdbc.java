@@ -15,6 +15,7 @@ import com.foxminded.university.domain.Course;
 import com.foxminded.university.domain.Faculty;
 
 public class CourseDaoJdbc implements CourseDao {
+    
     private ConnectionFactory connFactory = new ConnectionFactory();
     
     @Override
