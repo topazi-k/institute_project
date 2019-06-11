@@ -8,11 +8,4 @@
     	<property name="jndiName" value="java:comp/env/jdbc/UniversityDB"/>
 	</bean>
 	
-	<bean id="connectionFactory"
-		class="com.foxminded.university.dao.ConnectionFactory">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-
-
-
 </beans>

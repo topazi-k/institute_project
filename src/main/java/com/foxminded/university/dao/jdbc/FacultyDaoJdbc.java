@@ -1,6 +1,13 @@
 package com.foxminded.university.dao.jdbc;
 
-import com.foxminded.university.constants.Constants;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.foxminded.university.dao.ConnectionFactory;
 import com.foxminded.university.dao.DaoException;
 import com.foxminded.university.dao.FacultyDao;
@@ -9,17 +16,9 @@ import com.foxminded.university.domain.Faculty;
 import com.foxminded.university.domain.Group;
 import com.foxminded.university.domain.Teacher;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.sql.PreparedStatement;
-
 public class FacultyDaoJdbc implements FacultyDao {
     
-    private ConnectionFactory connFactory = (ConnectionFactory) Constants.CONTEXT_SPRING.getBean("connectionFactory",ConnectionFactory.class);
+    private ConnectionFactory connFactory = new ConnectionFactory();
     private TeacherDaoJdbc teacherDao = new TeacherDaoJdbc();
     private GroupDaoJdbc groupDao = new GroupDaoJdbc();
     private CourseDaoJdbc courseDao = new CourseDaoJdbc();

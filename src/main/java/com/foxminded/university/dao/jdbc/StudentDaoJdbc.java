@@ -1,11 +1,10 @@
 package com.foxminded.university.dao.jdbc;
 
-import com.foxminded.university.constants.Constants;
-import com.foxminded.university.dao.ConnectionFactory;
-import com.foxminded.university.dao.DaoException;
-import com.foxminded.university.dao.StudentDao;
-import com.foxminded.university.domain.Group;
-import com.foxminded.university.domain.Student;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,15 +12,15 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
+import com.foxminded.university.dao.ConnectionFactory;
+import com.foxminded.university.dao.DaoException;
+import com.foxminded.university.dao.StudentDao;
+import com.foxminded.university.domain.Group;
+import com.foxminded.university.domain.Student;
 
 public class StudentDaoJdbc implements StudentDao {
     
-    private ConnectionFactory connFactory = (ConnectionFactory) Constants.CONTEXT_SPRING.getBean("connectionFactory",ConnectionFactory.class);
+    private ConnectionFactory connFactory = new ConnectionFactory();
     private static Logger log = LogManager.getLogger(StudentDaoJdbc.class);
     
     @Override
