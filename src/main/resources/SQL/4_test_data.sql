@@ -4,7 +4,7 @@ VALUES
     (1,'PSYCHOLOGY'),
     (2,'COMPUTER SCIENCE');
 
-INSERT INTO "group"
+INSERT INTO groups
     (id,number,name,faculty)
 VALUES
     (1,111,'P-18',1),
@@ -12,7 +12,7 @@ VALUES
     (3,221,'CS-18',2);
 
 INSERT INTO student
-    (id,first_name,last_name,birth_day,"group")
+    (id,first_name,last_name,birth_day,group_id)
 VALUES
     (1,'Ivan','Ivanov','2001-09-28',1),
     (2,'Petr','Petrov','2001-09-28',1),
@@ -47,7 +47,7 @@ VALUES
     (2,12,40);
 
 INSERT INTO schedule
-    (id,"date","time","group",teacher,course,classroom)
+    (id,lecture_date,lecture_time,group_id,teacher,course,classroom)
 VALUES
     (1,'2001-09-28','04:00:00',1,1,1,1),
     (2,'2001-09-27','04:00:00',1,1,1,1),

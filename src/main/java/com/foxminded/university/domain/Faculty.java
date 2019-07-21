@@ -3,11 +3,31 @@ package com.foxminded.university.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "faculty")
 public class Faculty {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "name")
     private String name;
+    @OneToMany
+    @JoinColumn(name = "faculty", nullable = true)
     private List<Teacher> teachers = new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name = "faculty", nullable = true)
     private List<Group> groups = new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name = "faculty", nullable = true)
     private List<Course> courses = new ArrayList<>();
     
     public void setId(int id) {
@@ -95,7 +115,7 @@ public class Faculty {
             return false;
         return true;
     }
-
+    
     @Override
     public String toString() {
         return "Faculty [name=" + name + "]";

@@ -4,13 +4,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.foxminded.university.dao.LectureDao;
-import com.foxminded.university.dao.jdbc.LectureDaoJdbc;
+import com.foxminded.university.dao.hibernate.LectureDaoHibernate;
 import com.foxminded.university.domain.Group;
 import com.foxminded.university.domain.Lecture;
 import com.foxminded.university.domain.Teacher;
 
 public class LectureService {
-    private LectureDao lectureDao = new LectureDaoJdbc();
+    private LectureDao lectureDao = new LectureDaoHibernate();
     
     public Lecture create(Lecture lecture) {
         return lectureDao.create(lecture);

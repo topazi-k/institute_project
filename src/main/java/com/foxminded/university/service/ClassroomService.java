@@ -3,12 +3,12 @@ package com.foxminded.university.service;
 import java.util.List;
 
 import com.foxminded.university.dao.ClassroomDao;
-import com.foxminded.university.dao.jdbc.ClassroomDaoJdbc;
+import com.foxminded.university.dao.hibernate.ClassroomDaoHibernate;
 import com.foxminded.university.domain.Classroom;
 
 public class ClassroomService {
     
-    private ClassroomDao classroomDao = new ClassroomDaoJdbc();
+    private ClassroomDao classroomDao = new ClassroomDaoHibernate();
     
     public Classroom create(Classroom classroom) {
         return classroomDao.create(classroom);

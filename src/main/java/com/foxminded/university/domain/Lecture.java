@@ -3,13 +3,37 @@ package com.foxminded.university.domain;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "schedule")
 public class Lecture {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @OneToOne
+    @JoinColumn(name = "group_id", nullable = true)
     private Group group;
+    @OneToOne
+    @JoinColumn(name = "teacher", nullable = true)
     private Teacher teacher;
+    @OneToOne
+    @JoinColumn(name = "course", nullable = true)
     private Course course;
+    @OneToOne
+    @JoinColumn(name = "classroom", nullable = true)
     private Classroom classroom;
+    
+    @Column(name = "lecture_date")
     private LocalDate date;
+    @Column(name = "lecture_time")
     private LocalTime time;
     
     public void setId(int id) {

@@ -3,10 +3,28 @@ package com.foxminded.university.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "groups")
 public class Group {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "number")
     private int groupNumber;
+    @Column(name = "name")
     private String groupName;
+    
+    @OneToMany
+    @JoinColumn(name = "group_id", nullable = true)
     private List<Student> students = new ArrayList<>();
     
     public void setId(int id) {

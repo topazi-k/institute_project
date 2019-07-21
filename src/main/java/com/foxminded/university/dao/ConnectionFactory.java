@@ -3,6 +3,8 @@ package com.foxminded.university.dao;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.apache.logging.log4j.LogManager;
@@ -15,6 +17,8 @@ public class ConnectionFactory {
     
     private static Logger log = LogManager.getLogger(ConnectionFactory.class);
     private static DataSource dataSource;
+    private static EntityManagerFactory emf;
+    private static ApplicationContext context = new ClassPathXmlApplicationContext("appContextSpring.xml");
     
     public Connection getConnection() {
         
@@ -24,7 +28,6 @@ public class ConnectionFactory {
             log.trace("Checking DataSource on null");
             if (dataSource == null) {
                 log.debug("Creating ApplicationContext(spring)");
-                ApplicationContext context = new ClassPathXmlApplicationContext("appContextSpring.xml");
                 log.debug("Getting DataSource from ApplicationContext(Spring)");
                 dataSource = (DataSource) context.getBean("dataSource", DataSource.class);
             }
@@ -39,4 +42,10 @@ public class ConnectionFactory {
         return connection;
     }
     
+    public EntityManager getEntityManager() {
+        if (emf == null) {   
+            emf = (EntityManagerFactory) context.getBean("myEmf");
+        }
+        return emf.createEntityManager();
+    }
 }

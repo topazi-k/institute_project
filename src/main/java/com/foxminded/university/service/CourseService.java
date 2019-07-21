@@ -3,12 +3,12 @@ package com.foxminded.university.service;
 import java.util.List;
 
 import com.foxminded.university.dao.CourseDao;
-import com.foxminded.university.dao.jdbc.CourseDaoJdbc;
+import com.foxminded.university.dao.hibernate.CourseDaoHibernate;
 import com.foxminded.university.domain.Course;
 import com.foxminded.university.domain.Faculty;
 
 public class CourseService {
-    private CourseDao courseDao = new CourseDaoJdbc();
+    private CourseDao courseDao = new CourseDaoHibernate();
     
     public Course create(Course course) {
         return courseDao.create(course);

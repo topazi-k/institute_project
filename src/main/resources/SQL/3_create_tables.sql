@@ -4,7 +4,7 @@
     name character varying(50) NOT NULL
 );
 
-CREATE TABLE "group"
+CREATE TABLE groups
 (
     id serial PRIMARY KEY,
     number integer NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE student
     first_name character varying(50) NOT NULL,
     last_name character varying(50) NOT NULL,
     birth_day date NOT NULL,
-    "group" integer REFERENCES "group"(id)
+    group_id integer REFERENCES groups(id)
 );
 
 CREATE TABLE course
@@ -48,9 +48,9 @@ CREATE TABLE classroom
 CREATE TABLE schedule
 (
     id serial PRIMARY KEY,
-    "date" date NOT NULL,
-    "time" time NOT NULL,
-    "group" integer REFERENCES "group"(id),
+    lecture_date date NOT NULL,
+    lecture_time time NOT NULL,
+    group_id integer REFERENCES groups(id),
     teacher integer REFERENCES teacher(id),
     course integer REFERENCES course(id),
     classroom integer REFERENCES classroom(id)

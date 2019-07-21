@@ -1,8 +1,21 @@
 package com.foxminded.university.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "classroom")
 public class Classroom {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "number")
     private int number;
+    @Column(name = "capacity")
     private int capacity;
     
     public void setId(int id) {
@@ -50,7 +63,7 @@ public class Classroom {
             return false;
         return true;
     }
-
+    
     @Override
     public String toString() {
         return "Classroom [number=" + number + ", capacity=" + capacity + "]";
