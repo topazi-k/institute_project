@@ -10,13 +10,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "groups")
 public class Group {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "groupSequence", sequenceName = "groups_id_seq", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "groupSequence")
     private int id;
     @Column(name = "number")
     private int groupNumber;
@@ -24,7 +26,7 @@ public class Group {
     private String groupName;
     
     @OneToMany
-    @JoinColumn(name = "group_id", nullable = true)
+    @JoinColumn(name = "group_id")
     private List<Student> students = new ArrayList<>();
     
     public void setId(int id) {

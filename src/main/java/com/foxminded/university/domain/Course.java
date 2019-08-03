@@ -5,17 +5,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "course")
 public class Course {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "courseSequence", sequenceName = "course_id_seq", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "courseSequence")
     private int id;
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
     
     public void setId(int id) {

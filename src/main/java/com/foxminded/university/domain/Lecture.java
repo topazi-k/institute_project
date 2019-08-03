@@ -10,25 +10,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "schedule")
 public class Lecture {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "scheduleSequence", sequenceName = "schedule_id_seq", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "scheduleSequence")
     int id;
     @OneToOne
-    @JoinColumn(name = "group_id", nullable = true)
+    @JoinColumn(name = "group_id")
     private Group group;
     @OneToOne
-    @JoinColumn(name = "teacher", nullable = true)
+    @JoinColumn(name = "teacher")
     private Teacher teacher;
     @OneToOne
-    @JoinColumn(name = "course", nullable = true)
+    @JoinColumn(name = "course")
     private Course course;
     @OneToOne
-    @JoinColumn(name = "classroom", nullable = true)
+    @JoinColumn(name = "classroom")
     private Classroom classroom;
     
     @Column(name = "lecture_date")

@@ -43,9 +43,15 @@ public class ConnectionFactory {
     }
     
     public EntityManager getEntityManager() {
-        if (emf == null) {   
-            emf = (EntityManagerFactory) context.getBean("myEmf");
+        EntityManager em;
+        try {
+            if (emf == null) {
+                emf = (EntityManagerFactory) context.getBean("myEmf");
+            }
+            em = emf.createEntityManager();
+        } catch (BeansException | IllegalStateException e) {
+            throw new DaoException(e);
         }
-        return emf.createEntityManager();
+        return em;
     }
 }

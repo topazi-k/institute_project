@@ -10,24 +10,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "faculty")
 public class Faculty {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "facultySequence", sequenceName = "faculty_id_seq", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "facultySequence")
     private int id;
     @Column(name = "name")
     private String name;
     @OneToMany
-    @JoinColumn(name = "faculty", nullable = true)
+    @JoinColumn(name = "faculty")
     private List<Teacher> teachers = new ArrayList<>();
     @OneToMany
-    @JoinColumn(name = "faculty", nullable = true)
+    @JoinColumn(name = "faculty")
     private List<Group> groups = new ArrayList<>();
     @OneToMany
-    @JoinColumn(name = "faculty", nullable = true)
+    @JoinColumn(name = "faculty")
     private List<Course> courses = new ArrayList<>();
     
     public void setId(int id) {
