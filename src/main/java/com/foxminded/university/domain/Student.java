@@ -12,16 +12,18 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "student")
-
 public class Student {
     @Id
-    @SequenceGenerator(name = "studentSequence", sequenceName = "student_id_seq",allocationSize = 1, initialValue = 1)
+    @SequenceGenerator(name = "studentSequence", sequenceName = "student_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "studentSequence")
     private int id;
+    
     @Column(name = "first_name")
     private String firstName;
+    
     @Column(name = "last_name")
     private String lastName;
+    
     @Column(name = "birth_day")
     private LocalDate birthDay;
     
@@ -78,7 +80,7 @@ public class Student {
             return false;
         return true;
     }
-    
+
     @Override
     public String toString() {
         return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthDay=" + birthDay

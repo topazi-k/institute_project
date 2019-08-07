@@ -14,13 +14,16 @@ import javax.persistence.Table;
 @Table(name = "teacher")
 public class Teacher {
     @Id
-    @SequenceGenerator(name = "teacherSequence", sequenceName = "teacher_id_seq", allocationSize = 1, initialValue = 1)
+    @SequenceGenerator(name = "teacherSequence", sequenceName = "teacher_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "teacherSequence")
     private int id;
+    
     @Column(name = "first_name")
     private String firstName;
+    
     @Column(name = "last_name")
     private String lastName;
+    
     @OneToOne
     @JoinColumn(name = "course")
     private Course course;

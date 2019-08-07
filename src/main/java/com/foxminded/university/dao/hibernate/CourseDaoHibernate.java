@@ -21,8 +21,6 @@ import com.foxminded.university.domain.Teacher;
 public class CourseDaoHibernate implements CourseDao {
     
     private ConnectionFactory connFactory = new ConnectionFactory();
-    private LectureDao lectureDao = new LectureDaoHibernate();
-    private TeacherDao teacherDao = new TeacherDaoHibernate();
     
     @Override
     public Course create(Course course) {
@@ -102,8 +100,6 @@ public class CourseDaoHibernate implements CourseDao {
         EntityManager em = connFactory.getEntityManager();
         try {
             EntityTransaction transaction = em.getTransaction();
-            removeCourseFromLectures(course);
-            removeCourseFromTeachers(course);
             transaction.begin();
             em.remove(course);
             transaction.commit();
@@ -113,25 +109,4 @@ public class CourseDaoHibernate implements CourseDao {
         }
     }
     
-    private void removeCourseFromLectures(Course course) {
-        EntityManager em = connFactory.getEntityManager();
-        TypedQuery<Lecture> query = em.createQuery("SELECT l FROM Lecture l WHERE l.course=?1", Lecture.class);
-        query.setParameter(1, course);
-        List<Lecture> lectures = query.getResultList();
-        for (Lecture lecture : lectures) {
-            lecture.setGroup(null);
-            lectureDao.update(lecture);
-        }
-    }
-    
-    private void removeCourseFromTeachers(Course course) {
-        EntityManager em = connFactory.getEntityManager();
-        TypedQuery<Teacher> query = em.createQuery("SELECT t FROM Teacher t WHRERE t.course=?1)", Teacher.class);
-        query.setParameter(1, course);
-        List<Teacher> teachers = query.getResultList();
-        for (Teacher teacher : teachers) {
-            teacher.setCourse(null);
-            teacherDao.update(teacher);
-        }
-    }
 }

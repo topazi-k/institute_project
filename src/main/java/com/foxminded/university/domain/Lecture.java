@@ -17,24 +17,29 @@ import javax.persistence.Table;
 @Table(name = "schedule")
 public class Lecture {
     @Id
-    @SequenceGenerator(name = "scheduleSequence", sequenceName = "schedule_id_seq", allocationSize = 1, initialValue = 1)
+    @SequenceGenerator(name = "scheduleSequence", sequenceName = "schedule_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "scheduleSequence")
     int id;
+    
     @OneToOne
     @JoinColumn(name = "group_id")
     private Group group;
+    
     @OneToOne
     @JoinColumn(name = "teacher")
     private Teacher teacher;
+    
     @OneToOne
     @JoinColumn(name = "course")
     private Course course;
+    
     @OneToOne
     @JoinColumn(name = "classroom")
     private Classroom classroom;
     
     @Column(name = "lecture_date")
     private LocalDate date;
+    
     @Column(name = "lecture_time")
     private LocalTime time;
     

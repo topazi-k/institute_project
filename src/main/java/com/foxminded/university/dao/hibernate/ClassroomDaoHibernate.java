@@ -17,7 +17,6 @@ import com.foxminded.university.domain.Lecture;
 public class ClassroomDaoHibernate implements ClassroomDao {
     
     private ConnectionFactory connFactory = new ConnectionFactory();
-    private LectureDao lectureDao = new LectureDaoHibernate();
     
     @Override
     public Classroom create(Classroom classroom) {
@@ -79,7 +78,6 @@ public class ClassroomDaoHibernate implements ClassroomDao {
         EntityManager em = connFactory.getEntityManager();
         try {
             EntityTransaction transaction = em.getTransaction();
-            removeClassroomFromLectuers(classroom);
             transaction.begin();
             em.remove(classroom);
             transaction.commit();
@@ -89,14 +87,4 @@ public class ClassroomDaoHibernate implements ClassroomDao {
         }
     }
     
-    private void removeClassroomFromLectuers(Classroom classroom) {
-        EntityManager em = connFactory.getEntityManager();
-        TypedQuery<Lecture> query = em.createQuery("SELECT l FROM Lecture l WHERE l.classroom=?1", Lecture.class);
-        query.setParameter(1, classroom);
-        List<Lecture> lectures = query.getResultList();
-        for (Lecture lecture : lectures) {
-            lecture.setClassroom(null);
-            lectureDao.update(lecture);
-        }
-    }
 }

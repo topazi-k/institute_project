@@ -188,10 +188,6 @@ public class FacultyDaoHibernate implements FacultyDao {
         EntityManager em = connFactory.getEntityManager();
         try {
             EntityTransaction transaction = em.getTransaction();
-            faculty.getCourses().clear();
-            faculty.getTeachers().clear();
-            faculty.getGroups().clear();
-            update(faculty);
             transaction.begin();
             em.remove(faculty);
             transaction.commit();

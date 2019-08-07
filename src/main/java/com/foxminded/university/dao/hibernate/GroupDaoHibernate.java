@@ -20,7 +20,6 @@ import com.foxminded.university.domain.Student;
 public class GroupDaoHibernate implements GroupDao {
     
     private ConnectionFactory connFactory = new ConnectionFactory();
-    private LectureDao lectureDao = new LectureDaoHibernate();
     
     @Override
     public Group create(Group group) {
@@ -151,8 +150,6 @@ public class GroupDaoHibernate implements GroupDao {
         EntityManager em = connFactory.getEntityManager();
         try {
             EntityTransaction transaction = em.getTransaction();
-            removeAllStudents(group);
-            removeGroupFromLectures(group);
             transaction.begin();
             em.remove(em.merge(group));
             transaction.commit();
@@ -162,11 +159,4 @@ public class GroupDaoHibernate implements GroupDao {
         }
     }
     
-    private void removeGroupFromLectures(Group group) {
-        List<Lecture> lectures = lectureDao.findByGroup(group);
-        for (Lecture lecture : lectures) {
-            lecture.setGroup(null);
-            lectureDao.update(lecture);
-        }
-    }
 }

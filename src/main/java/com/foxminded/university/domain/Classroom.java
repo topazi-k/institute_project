@@ -12,11 +12,13 @@ import javax.persistence.Table;
 @Table(name = "classroom")
 public class Classroom {
     @Id
-    @SequenceGenerator(name = "classroomSequence", sequenceName = "classroom_id_seq", allocationSize = 1, initialValue = 1)
+    @SequenceGenerator(name = "classroomSequence", sequenceName = "classroom_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "classroomSequence")
     private int id;
+    
     @Column(name = "number")
     private int number;
+    
     @Column(name = "capacity")
     private int capacity;
     
@@ -65,7 +67,7 @@ public class Classroom {
             return false;
         return true;
     }
-    
+
     @Override
     public String toString() {
         return "Classroom [number=" + number + ", capacity=" + capacity + "]";

@@ -17,17 +17,21 @@ import javax.persistence.Table;
 @Table(name = "faculty")
 public class Faculty {
     @Id
-    @SequenceGenerator(name = "facultySequence", sequenceName = "faculty_id_seq", allocationSize = 1, initialValue = 1)
+    @SequenceGenerator(name = "facultySequence", sequenceName = "faculty_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "facultySequence")
     private int id;
+    
     @Column(name = "name")
     private String name;
+    
     @OneToMany
     @JoinColumn(name = "faculty")
     private List<Teacher> teachers = new ArrayList<>();
+    
     @OneToMany
     @JoinColumn(name = "faculty")
     private List<Group> groups = new ArrayList<>();
+    
     @OneToMany
     @JoinColumn(name = "faculty")
     private List<Course> courses = new ArrayList<>();
@@ -117,7 +121,7 @@ public class Faculty {
             return false;
         return true;
     }
-    
+
     @Override
     public String toString() {
         return "Faculty [name=" + name + "]";

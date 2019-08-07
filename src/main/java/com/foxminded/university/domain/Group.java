@@ -17,11 +17,13 @@ import javax.persistence.Table;
 @Table(name = "groups")
 public class Group {
     @Id
-    @SequenceGenerator(name = "groupSequence", sequenceName = "groups_id_seq", allocationSize = 1, initialValue = 1)
+    @SequenceGenerator(name = "groupSequence", sequenceName = "groups_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "groupSequence")
     private int id;
+    
     @Column(name = "number")
     private int groupNumber;
+    
     @Column(name = "name")
     private String groupName;
     
