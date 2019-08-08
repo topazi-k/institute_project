@@ -1,6 +1,6 @@
 <Context>	
 	<Resource name="jdbc/UniversityDB" auth="Container"
-		type="javax.sql.DataSource" maxActive="100" maxIdle="2" maxWait="5000"
+		type="javax.sql.DataSource" maxTotal="100" maxIdle="2" maxWaitMillis="5000"
 		driverClassName="org.postgresql.Driver" username="new_user"
 		password="12345" url="jdbc:postgresql://localhost:5432/university" />		
 </Context>

@@ -3,14 +3,14 @@ package com.foxminded.university.service;
 import java.util.List;
 
 import com.foxminded.university.dao.GroupDao;
-import com.foxminded.university.dao.jdbc.GroupDaoJdbc;
+import com.foxminded.university.dao.hibernate.GroupDaoHibernate;
 import com.foxminded.university.domain.Faculty;
 import com.foxminded.university.domain.Group;
 import com.foxminded.university.domain.Student;
 
 public class GroupService {
     
-    private GroupDao groupDao = new GroupDaoJdbc();
+    private GroupDao groupDao = new GroupDaoHibernate();
     
     public Group create(Group group) {
         return groupDao.create(group);

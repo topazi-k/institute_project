@@ -1,8 +1,25 @@
 package com.foxminded.university.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "course")
 public class Course {
+    @Id
+    @SequenceGenerator(name = "courseSequence", sequenceName = "course_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "courseSequence")
     private int id;
+    
+    @Column(name = "name")
     private String name;
+    
+    @Column(name = "description")
     private String description;
     
     public void setId(int id) {
